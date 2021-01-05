@@ -24,8 +24,8 @@ How we can use our strengths to overcome obstacles:
 Schedule Expectations (When are we available to work together and individually? What constraints do we have? Make sure to discuss the remote questions above in regards to this section):
 Conflicts:
 - Elsa: Tuesdays 6:30-8pm, 
-- Drew: Mondays 4-5:30pm, 
-- Cole: Monday 6:30pm, Saturday 5pm, Sunday 10am, 
+- Drew: Mondays 4-5:30pm, Thursday 4-5:30pm
+- Cole: Monday 6:30pm, Wednesday 5:30pm-6:15pm
 
 - SCHEDULE: 5PM-8PM Weekdays, 10am-4pm Weekends
 
@@ -42,20 +42,36 @@ Communication Expectations (How and often will we communicate? How do we keep li
    - What do we want to accomplish during our next work session.
 
 Abilities & Growth Expectations (Technical strengths and areas for desired improvement):
-- 
+- Cole: Strong in JS and logic. Good eye for design. Organized. Wants to get better at back end.
+- Drew: I am good at setting and achieving goals, but want to learn to reach beyond the minimum requirement for those goals.
+- Elsa: Good at tests and debugging. Wants to get better at working on one thing at a time.
 
 Workload Expectations (What features do we each want to work on?):
+- First sprint: paired programming
+- Second sprint: assigned individual tasks
 
 Workflow Expectations (Git workflow/Tools/Code Review/Reviewing Pull Requests/Debugging and Problem-solving Techniques): 
+- GitHub projects
+- GitHub issues
+- GitHub milestones
+- pseudocoding
 
 Pomodoro Break Schedule:
+- 45 on, 10 off
 
 Expectations for giving and receiving feedback:
+- Assume positive intent, acknowledge negative impact
+- Speak up if you do not understand.
+- If you're navigating, check for understanding.
 
 Additional Remote Considerations:
-
-Project management tools we will use (GitHub projects or Trello are popular tools):
+- If Matt is too distracting for Cole & Drew, Elsa can do push to talk.
 
 Day 1 Agenda: 
+- Look at codebase
+- Outline workflow (Elsa's google doc)
 
 Additional Notes:
+- Eddie (Elsa's mentor) can meet with us, and is willing to do a PR review.
+- JP (Elsa's rock) can offer assistance where needed.
+- Mike (Drew's mentor) can help during work time.

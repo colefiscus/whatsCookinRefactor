@@ -10,7 +10,7 @@ import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
 
-import getData from './util.js';
+import './util.js';
 
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
@@ -25,7 +25,7 @@ favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
 
 function onStartup() {
-  getData()
+  getData('http://localhost:3001/api/v1/users')
   let userId = (Math.floor(Math.random() * 49) + 1)
   let newUser = users.find(user => {
     return user.id === Number(userId);

@@ -4,22 +4,22 @@ class User {
     this.name = name;
     this.pantry = pantry;
     this.favoriteRecipes = [];
-
+    this.recipesToCook = [];
   }
 
-  addToFavorites(recipe) {
-    if (!this.favoriteRecipes.includes(recipe)) {
-      this.favoriteRecipes.push(recipe)
+  addToRecipeArray(recipe, array) {
+    if (!array.includes(recipe)) {
+      array.push(recipe)
     }
   }
 
-  removeFromFavorites(recipe) {
-    const i = this.favoriteRecipes.indexOf(recipe);
-    this.favoriteRecipes.splice(i, 1)
+  removeFromRecipeArray(recipe, array) {
+    const i = array.indexOf(recipe);
+    array.splice(i, 1)
   }
 
-  filterFavorites(tag) {
-    return this.favoriteRecipes.filter(recipe => {
+  filterRecipeArray(tag, array) {
+    return array.filter(recipe => {
       return recipe.tags.includes(tag);
     });
   }

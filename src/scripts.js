@@ -10,7 +10,7 @@ import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
 
-import './util.js';
+import { getData } from './util.js';
 
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
@@ -22,39 +22,7 @@ homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
 
-const getData = (api) => {
-  console.log("hot damn")
-  return fetch(api)
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.log(error))
-}
 
-const postData = (api, body) => {
-  return fetch(api, {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  })
-    .then(response => response.json())
-    .then(data => data)
-    .catch(error => console.log(error))
-}
-
-const deleteData = (api, body) => {
-  return fetch(api, {
-    method: "DELETE",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  })
-    .then(response => response.json())
-    .then(data => data)
-    .catch(error => console.log(error))
-}
 
 window.onload = onStartup();
 

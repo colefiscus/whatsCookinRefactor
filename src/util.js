@@ -1,12 +1,11 @@
-const getData = (api) => {
-  console.log("hot damn")
+export const getData = (api) => {
   return fetch(api)
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.log(error))
 }
 
-const postData = (api, body) => {
+export const postData = (api, body) => {
   return fetch(api, {
     method: "POST",
     headers: {
@@ -19,7 +18,7 @@ const postData = (api, body) => {
     .catch(error => console.log(error))
 }
 
-const deleteData = (api, body) => {
+export const deleteData = (api, body) => {
   return fetch(api, {
     method: "DELETE",
     headers: {
@@ -32,6 +31,4 @@ const deleteData = (api, body) => {
     .catch(error => console.log(error))
 }
 
-// export default getData;
-// export default postData;
-// export default deleteData;
+

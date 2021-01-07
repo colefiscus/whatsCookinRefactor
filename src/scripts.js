@@ -10,19 +10,27 @@ import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
 
+import { getData, postData, deleteData } from './util.js';
+
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
 let cardArea = document.querySelector('.all-cards');
 let cookbook = new Cookbook(recipeData);
 let user, pantry;
 
-window.onload = onStartup();
-
 homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
 
+
+
+window.onload = onStartup();
+
 function onStartup() {
+  // getData('http://localhost:3001/api/v1/users')
+  getData("http://localhost:3001/api/v1/ingredients")
+  getData("http://localhost:3001/api/v1/recipes")
+
   let userId = (Math.floor(Math.random() * 49) + 1)
   let newUser = users.find(user => {
     return user.id === Number(userId);

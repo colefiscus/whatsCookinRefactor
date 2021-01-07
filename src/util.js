@@ -32,6 +32,6 @@ const deleteData = (api, body) => {
     .catch(error => console.log(error))
 }
 
-export default getData;
-export default postData;
-export default deleteData;
+// export default getData;
+// export default postData;
+// export default deleteData;

@@ -16,6 +16,7 @@
   "author": "Turing School of Software and Design",
   "license": "MIT",
   "devDependencies": {
+    "@webpack-cli/serve": "^1.2.1",
     "chai": "^4.2.0",
     "css-loader": "^5.0.1",
     "eslint": "^7.17.0",
@@ -26,8 +27,8 @@
     "node-sass": "^5.0.0",
     "sass-loader": "^10.1.0",
     "style-loader": "^2.0.0",
-    "webpack": "^4.31.0",
-    "webpack-cli": "^3.2.1",
-    "webpack-dev-server": "^3.1.14"
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.1"
   }
 }

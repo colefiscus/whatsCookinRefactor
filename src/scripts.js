@@ -18,11 +18,45 @@ let cardArea = document.querySelector('.all-cards');
 let cookbook = new Cookbook(recipeData);
 let user, pantry;
 
-window.onload = onStartup();
-
 homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
+
+const getData = (api) => {
+  console.log("hot damn")
+  return fetch(api)
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.log(error))
+}
+
+const postData = (api, body) => {
+  return fetch(api, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+    .then(response => response.json())
+    .then(data => data)
+    .catch(error => console.log(error))
+}
+
+const deleteData = (api, body) => {
+  return fetch(api, {
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+    .then(response => response.json())
+    .then(data => data)
+    .catch(error => console.log(error))
+}
+
+window.onload = onStartup();
 
 function onStartup() {
   getData('http://localhost:3001/api/v1/users')

@@ -28,7 +28,7 @@ describe('User', () => {
     expect(user1.favoriteRecipes).to.eql([]);
   });
 
-  it.only('Should be able to add recipes to favoriteRecipes', () => {
+  it.skip('Should be able to add recipes to favoriteRecipes', () => {
     user1 = new User(1, "Boba", [{
       ingredient: 1077,
       amount: 1,
@@ -70,9 +70,51 @@ describe('User', () => {
     expect(favoriteRecipes[0].name).to.eql(recipeData[0].name)
   });
 
-  it('Should be able to remove recipes from favoriteRecipes', () => {
-    user1.removeFromFavorites(recipeData);
-    expect(user1.favoriteRecipes).to.eql([]);
+  it.skip('Should be able to remove recipes from favoriteRecipes', () => {
+    user1 = new User(1, "Boba", [{
+      ingredient: 1077,
+      amount: 1,
+    },
+    {
+      ingredient: 14412,
+      amount: 1,
+    },
+    {
+      ingredient: 1009054,
+      amount: 3,
+    },
+    ])
+    recipeData = [{
+      name: "Loaded Chocolate Chip Pudding Cookie Cups",
+      id: 595736,
+      image: "https://spoonacular.com/recipeImages/595736-556x370.jpg",
+      ingredients: [{
+        name: "all purpose flour",
+        id: 20081,
+        quantity: {
+          amount: 1.5,
+          unit: "c",
+        },
+      },
+      {
+        name: "baking soda",
+        id: 18372,
+        quantity: {
+          amount: 0.5,
+          unit: "tsp",
+        },
+      },
+      ],
+    }, ]
+    let favoriteRecipes = [{
+      name: "Loaded Chocolate Chip Pudding Cookie Cups",
+    }]
+
+    expect(favoriteRecipes).to.eql([{
+      name: "Loaded Chocolate Chip Pudding Cookie Cups",
+    }, ])
+    user1.removeFromRecipeArray(recipeData, favoriteRecipes)
+    expect(favoriteRecipes).to.eql([]);
   });
 
   it('Should be able to filter through favoriteRecipes by tag', () => {

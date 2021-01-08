@@ -10,9 +10,9 @@ class User {
   }
 
   addToRecipeArray(recipe, array) {
-    console.log('fuck')
     if (!array.includes(recipe)) {
       array.push(recipe)
+      // console.log(this.recipesToCook)
     }
   }
 
@@ -35,49 +35,69 @@ class User {
         });
     });
   }
-  
-  canICookThis(recipe) {
-    // console.log("recipe ingredients", recipe.ingredients[0].id)
-    // console.log("pantry", this.pantry[0].ingredient)
 
+  canICookThis(recipe) {
     let recipeIngredients = recipe.ingredients
     let pantryIngredients = this.pantry
-    console.log(recipeIngredients)
-    console.log(pantryIngredients)
-
-    for (let i = 0; i < recipeIngredients; i++) {
-      // if (pantryIngredients.indexOf(recipeIngredients[i].id) !== -1 ) {
-      console.log(pantryIngredients.indexOf(recipeIngredients[i].id) !== -1)
-      // }
-      // else {
-      // console.log("yes way")
-      // }
-    }
-    // let foundIt = recipe.ingredients.every(element => this.pantry.includes(element.id))
-    // console.log(foundIt)
-
-
-
-    //   {
-    //   console.log("prints first ing id", recipeIngredient.id)
-    //   if (this.pantry.includes(recipeIngredient.id)) {
-    //     // return recipeIngredient.id
-    //   } else {
-    //     console.log("yan can't cook")
-    //   }
-    //   this.pantry.find(ingredient => {
-    //     ingredient === recipeIngredient.id
-    //     // console.log(this.pantry.amount)
-    //     // return the amount in the pantry
-    //   })
-
-    // })
-
-
-    // (recipeIngredient.quantity.amount <= this.pantry.thisthing.amount)
-    // console.log("found it", recipeIngredient.name)
-    // console.log(recipe.ingredients)
+    let recipeIngredientsInPantry = []
+    let shoppingList = []
+    recipeIngredients.forEach(recipeIngredient => {
+        let match = pantryIngredients.find(pantryIng => pantryIng.ingredient === recipeIngredient.id)
+        if (match) {
+        recipeIngredientsInPantry.push(match)
+        } else if (!match) {
+        shoppingList.push(`{name: ${recipeIngredient.name}, amount: ${recipeIngredient.quantity.amount}}`)
+        return
+      }
+    });
+    recipeIngredientsInPantry.forEach(recipeItem => {
+      if (recipeItem.ingredient === recipeIngredients.id) {
+        if (recipeItem.amount >= recipeIngredients.quantity.amount) {
+          return
+        } else if (recipeItem.amount < recipeIngredients.quantity.amount) {
+          let diff = (recipeIngredients.quantity.amount - recipeItem.amount)
+          shoppingList.push(`{name: ${recipeItem.name}, amount: ${diff}}`)
+        }
+      }
+    })
+    console.log(shoppingList);
   }
+  
+  // canICookThis(recipe) {
+  //   let recipeIngredients = recipe.ingredients
+  //   let pantryIngredients = this.pantry
+  //   if (recipeIngredients.every(item => pantryIngredients.includes(item.id))) {
+  //     console.log('you can cook this!')
+  //     return
+  //   }
+  //   let ingredientsThatMatch = []
+  //   let successCount = []
+  //   let shoppingList = []
+  //   recipeIngredients.forEach((ingredient, i) => {
+  //     let foundIngredient = pantryIngredients.find(pIng => pIng.ingredient === ingredient.id)
+  //     ingredientsThatMatch.push(foundIngredient)
+  //     // console.log(foundIngredient)
+  //     if (ingredientsThatMatch.length === recipeIngredients.length && ingredient.quantity.amount <= foundIngredient.amount) {
+  //     successCount.push(true)
+  //     } else {
+  //     // create shopping list
+  //     console.log(foundIngredient.amount)
+  //     let ingredientDifference = (ingredient.quantity.amount - foundIngredient.amount)
+  //     shoppingList.push(`You need ${ingredientDifference} of ${ingredient.name} to be able to cook this`)
+  //     // actually want to push an object with name and diff
+  //       }
+  //     }) 
+  //     if (successCount.length === recipe.length){
+  //     console.log('yan can cook')
+  //     } else {
+  //     console.log("shoppingList>>>>", shoppingList)
+  //     console.log('yan cannot cook')
+  //     }
+  //   // console.log('line quantity amount', line.quantity.amount)
+  //   // console.log('found ingredient', foundIngredient.amount)
+  //   // console.log('ingredientsThatMatch', ingredientsThatMatch.length)
+  //   // console.log('num of rec ings', recipe.length)
+  // }
 
 }
 

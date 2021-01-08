@@ -99,7 +99,7 @@ function cardButtonConditionals(event) {
       }
     })
     user.addToRecipeArray(recipe, user.recipesToCook)
-    console.log(user.recipesToCook)
+    
     user.canICookThis(recipe)
   } else if (event.target.classList.contains("home")) {
     favButton.innerHTML = "View Favorites"

@@ -12,8 +12,8 @@ class User {
   addToRecipeArray(recipe, array) {
     if (!array.includes(recipe)) {
       array.push(recipe)
-      // console.log(this.recipesToCook)
     }
+    return array
   }
 
   removeFromRecipeArray(recipe, array) {
@@ -40,13 +40,12 @@ class User {
     let recipeIngredients = recipe.ingredients
     let pantryIngredients = this.pantry
     let recipeIngredientsInPantry = []
-    let shoppingList = []
     recipeIngredients.forEach(recipeIngredient => {
-        let match = pantryIngredients.find(pantryIng => pantryIng.ingredient === recipeIngredient.id)
-        if (match) {
+      let match = pantryIngredients.find(pantryIng => pantryIng.ingredient === recipeIngredient.id)
+      if (match) {
         recipeIngredientsInPantry.push(match)
-        } else if (!match) {
-        shoppingList.push(`{name: ${recipeIngredient.name}, amount: ${recipeIngredient.quantity.amount}}`)
+      } else if (!match) {
+        this.shoppingList.push(`{name: ${recipeIngredient.name}, amount: ${recipeIngredient.quantity.amount}}`)
         return
       }
     });
@@ -56,49 +55,15 @@ class User {
           return
         } else if (recipeItem.amount < recipeIngredients.quantity.amount) {
           let diff = (recipeIngredients.quantity.amount - recipeItem.amount)
-          shoppingList.push(`{name: ${recipeItem.name}, amount: ${diff}}`)
+          this.shoppingList.push(`{name: ${recipeItem.name}, amount: ${diff}}`)
         }
       }
     })
     console.log(shoppingList);
+    if (recipeIngredients.length === pantryIngredients.length) {
+      return 'You have the ingredients!'
+    }
   }
-  
-  // canICookThis(recipe) {
-  //   let recipeIngredients = recipe.ingredients
-  //   let pantryIngredients = this.pantry
-  //   if (recipeIngredients.every(item => pantryIngredients.includes(item.id))) {
-  //     console.log('you can cook this!')
-  //     return
-  //   }
-  //   let ingredientsThatMatch = []
-  //   let successCount = []
-  //   let shoppingList = []
-  //   recipeIngredients.forEach((ingredient, i) => {
-  //     let foundIngredient = pantryIngredients.find(pIng => pIng.ingredient === ingredient.id)
-  //     ingredientsThatMatch.push(foundIngredient)
-  //     // console.log(foundIngredient)
-  //     if (ingredientsThatMatch.length === recipeIngredients.length && ingredient.quantity.amount <= foundIngredient.amount) {
-  //     successCount.push(true)
-  //     } else {
-  //     // create shopping list
-  //     console.log(foundIngredient.amount)
-  //     let ingredientDifference = (ingredient.quantity.amount - foundIngredient.amount)
-  //     shoppingList.push(`You need ${ingredientDifference} of ${ingredient.name} to be able to cook this`)
-  //     // actually want to push an object with name and diff
-  //       }
-  //     }) 
-  //     if (successCount.length === recipe.length){
-  //     console.log('yan can cook')
-  //     } else {
-  //     console.log("shoppingList>>>>", shoppingList)
-  //     console.log('yan cannot cook')
-  //     }
-  //   // console.log('line quantity amount', line.quantity.amount)
-  //   // console.log('found ingredient', foundIngredient.amount)
-  //   // console.log('ingredientsThatMatch', ingredientsThatMatch.length)
-  //   // console.log('num of rec ings', recipe.length)
-  // }
-
 }
 
 export default User;

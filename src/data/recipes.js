@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 let recipeData = [
   {
     "name": "Loaded Chocolate Chip Pudding Cookie Cups",
@@ -5917,5 +5918,4 @@ let recipeData = [
   }
 ]
 
-
-  export default recipeData;
+export default recipeData;

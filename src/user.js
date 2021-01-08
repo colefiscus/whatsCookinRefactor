@@ -46,8 +46,7 @@ class User {
         if (match) {
         recipeIngredientsInPantry.push(match)
         } else if (!match) {
-        shoppingList.push(`{name: ${recipeIngredient.name}, amount: ${recipeIngredient.quantity.amount}}`)
-        return
+        shoppingList.push(`{name: ${recipeIngredient.name}, amount: ${recipeIngredient.quantity.amount}, unit: ${recipeIngredient.quantity.unit}}`)
       }
     });
     recipeIngredientsInPantry.forEach(recipeItem => {
@@ -56,7 +55,7 @@ class User {
           return
         } else if (recipeItem.amount < recipeIngredients.quantity.amount) {
           let diff = (recipeIngredients.quantity.amount - recipeItem.amount)
-          shoppingList.push(`{name: ${recipeItem.name}, amount: ${diff}}`)
+          shoppingList.push(`{name: ${recipeItem.name}, amount: ${diff}, unit: ${recipeIngredient.quantity.unit}}`)
         }
       }
     })

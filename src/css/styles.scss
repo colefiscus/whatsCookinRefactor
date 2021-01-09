@@ -1,35 +1,49 @@
+* {
+  background-color: #ECFBFF;
+}
+
 html {
-  background-color: #37515C;
-  border: 2px solid #000;
   height: 100vh;
+  padding-bottom: 3em;
 }
 
 body {
   box-sizing: border-box;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   margin: auto;
 }
 
-
 .main-header {
-  background-color: #EBF5EE;
-  border: 2px solid #000;
+  background-color: #D1B8C7;
+  border: 2px solid #405249;
   display: flex;
   height: auto;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
+}
+.main-header span {
+  background-color: #D1B8C7;
 }
 
 .navButton {
-  background-color: #EBF5EE;
-  border-left: 1px solid #000;
-  border-right: 1px solid #000;
+  background-color: #D1B8C7;
   font-size: 130%;
   margin: 1%;
+  height: 50%;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px #37515C;
+}
+.navButton:hover {
+  cursor: pointer;
+}
+.navButton:active {
+  background-color: #D1AA8E;
+  outline: #9CD199;
 }
 
 h1 {
-  border-right: 2px solid #000;
+  background-color: #D1B8C7;
   font-size: 255%;
   margin-top: 0;
   margin-bottom: 0;
@@ -39,10 +53,11 @@ h1 {
 }
 
 .user-info {
+  background-color: #D1B8C7;
   font-size: 180%;
   margin: auto;
   text-align: center;
-  width: 40%
+  width: 40%;
 }
 
 .search-bar {
@@ -53,30 +68,24 @@ h1 {
 }
 
 .search-button {
-  background-color: #EBF5EE;
-  border: 1px solid #000;
+  border: 1px solid #405249;
   width: 20%;
   height: 58px;
   margin-top: 3px;
 }
 
 .search-image:hover,
-.card-button:hover,
-.navButton:hover,
 .search-button:hover {
-  background-color: #cff2da;
+  background-color: #AECED1;
 }
 
-
 .search-image:active,
-.card-button:active,
-.navButton:active,
 .search-button:active {
-  background-color: #C3C2C6;
+  background-color: #4BD176;
 }
 
 .search-input {
-  border: 1px solid #000;
+  border: 1px solid #405249;
   font-size: 100%;
   height: 7vh;
   margin: 3px 7px 0px 0px;
@@ -84,17 +93,8 @@ h1 {
   width: 90%;
 }
 
-
-.card-button {
-  border: 1px solid #000;
-  height: 27px;
-  margin: 3px;
-}
-
-
-
 .add-button {
-  background-color: #EBF5EE;
+  background-color: #ECFBFF;
   display: flex;
   width: 12%;
 }
@@ -107,9 +107,8 @@ h1 {
   display: none;
 }
 
-
 .favorite {
-  background-color: #EBF5EE;
+  background-color: #ECFBFF;
   background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -118,10 +117,10 @@ h1 {
 
 .all-cards {
   display: grid;
-  grid-gap: 30px;
+  grid-gap: 20px;
   grid-template-columns: repeat(4, 1fr);
-  padding: 30px 0 30px 30px;
-  width: 95.5vw;
+  padding-top: 10px;
+  margin: auto;
 }
 
 img {
@@ -129,17 +128,27 @@ img {
 }
 
 .card {
-  background-color: #D7F2FE;
-  border: 3px solid #000;
+  background-color: #ECFBFF;
+  border: 3px solid #405249;
   width: 100%;
 }
 
-
 .card-header {
-  background-color: #EBF5EE;
-  border-bottom: 1px solid #000;
+  background-color: #ECFBFF;
+  border-bottom: 1px solid #405249;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 2.5em;
+}
+.card-header button {
+  border: none;
+  height: 2em;
+  width: 2em;
+  margin: 0 1em;
+}
+.card-header .add-button {
+  margin-top: 0.2em;
 }
 
 .all {
@@ -160,7 +169,6 @@ h3 {
 }
 
 .recipe-name {
-
   display: block;
   font-size: 150%;
   text-align: center;
@@ -171,11 +179,11 @@ h3 {
 }
 
 .card-picture:active {
-  border: 2px solid #000;
+  border: 2px solid #405249;
 }
 
 .card-picture {
-  border: 1px solid #000;
+  border: 1px solid #405249;
   height: 200px;
   margin: 10px 3% 8px 2.6%;
   width: 94%;
@@ -183,11 +191,14 @@ h3 {
 
 main {
   background-color: #37515C;
-  height: 100%;
-  width: 100%;
+  height: 90vh;
+  width: 90vh;
+  margin: auto;
 }
 
 .favorite-active {
   background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
   background-repeat: no-repeat;
 }
+
+/*# sourceMappingURL=styles.scss.map */

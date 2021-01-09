@@ -113,7 +113,7 @@ function cardButtonConditionals(event) {
     })
     user.addToRecipeArray(recipe, user.recipesToCook)
 
-    user.canICookThis(recipe)
+    user.checkPantry(recipe)
   } else if (event.target.classList.contains("home")) {
     favButton.innerHTML = "View Favorites"
     populateCards(cookbook.recipes)
@@ -175,7 +175,7 @@ function populateCards(recipes) {
     cardArea.insertAdjacentHTML(
       "afterbegin",
       `<div id='${recipe.id}'
-    class='card'>${recipe.id}
+    class='card'> 
         <header id='${recipe.id}' class='card-header'>
           <label for='add-button' class='hidden'>Click to add recipe</label>
           <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>

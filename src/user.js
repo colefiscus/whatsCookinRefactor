@@ -36,6 +36,16 @@ class User {
     });
   }
 
+  searchRecipesToCook(strgToSrch) {
+    return this.recipesToCook.filter(recipe => {
+      return recipe.name.includes(strgToSrch)
+      || recipe.ingredients.find(indredient => {
+        return ingredient.name.includes(strgToSrch)
+      });
+    });
+  }
+}
+
   canICookThis(recipe) {
     let recipeIngredients = recipe.ingredients
     let pantryIngredients = this.pantry
@@ -61,7 +71,7 @@ class User {
     })
     console.log(shoppingList);
   }
-  
+
   // canICookThis(recipe) {
   //   let recipeIngredients = recipe.ingredients
   //   let pantryIngredients = this.pantry
@@ -85,7 +95,7 @@ class User {
   //     shoppingList.push(`You need ${ingredientDifference} of ${ingredient.name} to be able to cook this`)
   //     // actually want to push an object with name and diff
   //       }
-  //     }) 
+  //     })
   //     if (successCount.length === recipe.length){
   //     console.log('yan can cook')
   //     } else {

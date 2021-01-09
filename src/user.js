@@ -45,9 +45,9 @@ class User {
       }
     })
     if (recipe.ingredients.length === recipeIngredientsInPantry.length) {
-      return "You have the ingredients!"
+      console.log("You have the ingredients!")
     } else {
-      this.createShoppingList(recipe);
+      this.createShoppingList(recipe, recipeIngredientsInPantry);
     }
     //   let recipeItemsWeHave = recipeIngredientsInPantry.filter(matchingItemInPantry => {
     //     for (let i = 0; i < recipe.ingredients.length; i++) {
@@ -65,19 +65,45 @@ class User {
   }
 
   createShoppingList(recipe) {
-    recipe.ingredients.forEach((recipeIngredient) => {
-      let answer = this.pantry.find((pantryIng) => {
-         if (pantryIng.ingredient === recipeIngredient.id && pantryIng.amount < recipeIngredient.quantity.amount) {
-           return
-         } else if (recipeIngredient.id) {
-           return
-         }
-      })
-      if (answer) {
-        this.shoppingList.push(recipeIngredient)
-      } else if (recipe.ingredient !== )
+    let recIngs = recipe.ingredients.map(recIng => recIng.id)
+    let pantryIngs = this.pantry.map(pantryIng => pantryIng.ingredient)
+    let recIngsNotPantryIngs = recIngs.filter(recIng => {
+      return recIngs.includes(recIng) && !pantryIngs.includes(recIng)
     })
-    return this.shoppingList
+
+    let recipeIngredientsInPantry = [];
+    this.pantry.forEach(pantryIng => {
+      let answer = recipe.ingredients.find(recipeIng => recipeIng.id === pantryIng.ingredient)
+      if (answer && !recipeIngredientsInPantry.includes(answer)) {
+        recipeIngredientsInPantry.push(answer)
+      }
+    })
+
+    console.log(recipeIngredientsInPantry)
+
+    recipeIngredientsInPantry.forEach(recInPantryIng => {
+      recipe.ingredients.reduce((acc, recIng) => {
+        if (recInPantryIng.ingredient === recIng.id && recIng.quantity.amount > recInPantryIng.amount) {
+          console.log("SOMETHING WE HAVE BUT NOT ENOUGH OF!!!")
+          let amountToBuy = recIng.quantity.amount - recInPantryIng.amount;
+          acc[[recIng]["name"]] = amountToBuy;
+          this.shoppingList.push(acc)
+        }
+        return acc;
+      }, {});
+    })
+
+    recIngsNotPantryIngs.forEach(recNotPantryIng => {
+      recipe.ingredients.reduce((acc, recIng) => {
+        if (recIng.id === recNotPantryIng) {
+          acc[recIng["name"]] = recIng["quantity"]["amount"];
+          this.shoppingList.push(acc)
+        }
+        return acc;
+      }, {})
+    })
+    // console.log("Shopping List?????", this.shoppingList);
+
   }
 
   // createShoppingList(recipeIngredientsInPantry, recipe) {

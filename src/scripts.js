@@ -99,8 +99,8 @@ function cardButtonConditionals(event) {
       }
     })
     user.addToRecipeArray(recipe, user.recipesToCook)
-    
-    user.canICookThis(recipe)
+
+    user.checkPantry(recipe)
   } else if (event.target.classList.contains("home")) {
     favButton.innerHTML = "View Favorites"
     populateCards(cookbook.recipes)

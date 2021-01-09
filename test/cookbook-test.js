@@ -1,7 +1,5 @@
 import {expect} from 'chai';
 
-
-// import recipeData from '../src/data/recipes';
 import Cookbook from '../src/cookbook';
 
 let cookbook;

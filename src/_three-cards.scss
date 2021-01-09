@@ -1,0 +1,13 @@
+@media only screen and (max-width: 930px) {
+    .user-info {
+        color: blue;
+    }
+
+    .all-cards {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
+        padding-top: 15px;
+        margin: auto;
+    }
+}

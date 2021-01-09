@@ -44,9 +44,9 @@ class User {
       });
     });
   }
-}
 
-  canICookThis(recipe) {
+
+  checkPantry(recipe) {
     let recipeIngredients = recipe.ingredients
     let pantryIngredients = this.pantry
     let recipeIngredientsInPantry = []

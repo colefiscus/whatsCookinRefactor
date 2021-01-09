@@ -26,9 +26,9 @@ cardArea.addEventListener('click', cardButtonConditionals);
 window.onload = onStartup();
 
 function onStartup() {
-  getData("http://localhost:3001/api/v1/users")
-  getData("http://localhost:3001/api/v1/ingredients")
-  getData("http://localhost:3001/api/v1/recipes")
+  // getData("http://localhost:3001/api/v1/users")
+  // getData("http://localhost:3001/api/v1/ingredients")
+  // getData("http://localhost:3001/api/v1/recipes")
 
   let userId = (Math.floor(Math.random() * 49) + 1)
   let newUser = users.find(user => {
@@ -168,14 +168,13 @@ function getFavorites() {
 
 function populateCards(recipes) {
   cardArea.innerHTML = '';
-  if (cardArea.classList.contains('all')) {
-    cardArea.classList.remove('all')
-  }
+  // if (cardArea.classList.contains('all')) {
+  //   cardArea.classList.remove('all')
+  // }
   recipes.forEach(recipe => {
     cardArea.insertAdjacentHTML(
       "afterbegin",
-      `<div id='${recipe.id}'
-    class='card'> 
+      `<div id='${recipe.id}' class='card'> 
         <header id='${recipe.id}' class='card-header'>
           <label for='add-button' class='hidden'>Click to add recipe</label>
           <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
@@ -183,8 +182,7 @@ function populateCards(recipes) {
             src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
             recipes to cook'>
           </button>
-          <label for='favorite-button' class='hidden'>Click to favorite recipe
-          </label>
+          <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
           <button id='${recipe.id}' aria-label='favorite-button' class='favorite ${recipe.id} card-button'></button>
         </header>
           <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>

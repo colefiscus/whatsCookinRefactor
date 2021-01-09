@@ -1,5 +1,4 @@
-@use 'three-cards';
-@use 'two-cards';
+
 
 $active: #D1AA8E;
 $blue: #AECED1;
@@ -24,14 +23,16 @@ body {
 .main-header {
   align-items: center;
   background-color: darken($blue-green, 20%);
-  border: 2px solid darken($blue-green, 40%);
+  border-bottom: 2px solid darken($blue-green, 40%);
+  border-right: 2px solid darken($blue-green, 40%);
+  border-left: 2px solid darken($blue-green, 40%);
   border-radius: 5px;
   display: flex;
   height: 7em;
   justify-content: space-between;
   margin: auto;
   padding-right: 2em;
-  width: 90%;
+  width: 70%;
 
   h1 {
     font-size: 200%;
@@ -112,7 +113,7 @@ main {
 
 .all-cards {
   display: grid;
-  grid-gap: 20px;
+  gap: 20px;
   grid-template-columns: repeat(4, 1fr);
   padding-top: 15px;
   margin: auto;
@@ -140,6 +141,7 @@ img {
   border-radius: 2px;
   display: flex;
   flex-direction: column;
+  height: 15em;
   width: 100%;
 }
 
@@ -148,6 +150,7 @@ img {
   justify-content: space-between;
   align-items: center;
   height: 2.5em;
+  margin-top: 5px;
 
   button {
     border: none;
@@ -189,25 +192,26 @@ img {
   color: $box-border;
 }
 
-.all {
-  grid-gap: 0px;
-  grid-template-columns: repeat(1, 1fr);
-}
+// .all {
+//   grid-gap: 0px;
+//   grid-template-columns: repeat(1, 1fr);
+// }
 
-.all-recipe-info,
-ol {
-  color: #EBF5EE;
-  font-size: 220%;
-  width: 100%;
-}
+// .all-recipe-info,
+// ol {
+//   color: #EBF5EE;
+//   font-size: 220%;
+//   width: 100%;
+// }
 
-h3 {
-  color: #EBF5EE;
-  font-size: 250%;
-}
+// h3 {
+//   color: #EBF5EE;
+//   font-size: 250%;
+// }
 
 .card-picture:hover {
   opacity: 0.7;
+  box-shadow: -2px -2px 10px #37515C;
 }
 
 .card-picture:active {
@@ -215,12 +219,16 @@ h3 {
 }
 
 .card-picture {
-  border: 1px solid $box-border;
-  height: 200px;
+
+  height: 90%;
   margin: 0 .5em .5em .5em;
   width: 90%;
+  overflow: hidden;
+  box-shadow: 2px 2px 10px #37515C;
 }
 
 .hidden {
   display: none;
 }
+
+@import 'three-cards', 'two-cards';

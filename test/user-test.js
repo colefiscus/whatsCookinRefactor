@@ -248,15 +248,14 @@ describe('User', () => {
     expect(user1.findFavorites('egg')).to.eql([recipeData[1]]);
   });
 
-  it('Should be able to check ingredients in User\'s pantry for a given recipe', () => {
-
+  it.only('Should be able to check ingredients in User\'s pantry for a given recipe', () => {
     user1 = new User(1, "Boba", [
       {
-        ingredient: 1077,
-        amount: 1,
+        ingredient: 20081,
+        amount: 2,
       },
       {
-        ingredient: 14412,
+        ingredient: 18372,
         amount: 1,
       },
       {
@@ -289,35 +288,9 @@ describe('User', () => {
           },
         ],
       },
-      {
-        name: "Another Loaded Chocolate Chip Pudding Cookie Cups",
-        tags: ["chocolate"],
-        id: 595736,
-        image: "https://spoonacular.com/recipeImages/595736-556x370.jpg",
-        ingredients: [
-          {
-            name: "all purpose flour",
-            id: 20081,
-            quantity: {
-              amount: 1.5,
-              unit: "c",
-            },
-          },
-          {
-            name: "egg",
-            id: 18372,
-            quantity: {
-              amount: 0.5,
-              unit: "tsp",
-            },
-          },
-        ],
-      },
     ]
-    
 
-    console.log(recipeData[0])
-    expect(user1.canICookThis(recipeData[0])).to.eql('You have the ingredients!');
+    expect(user1.checkPantry(recipeData[0])).to.eql("You have the ingredients!")
   });
 
   it('Should inform User if they lack required ingredients for a given recipe', () => {

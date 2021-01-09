@@ -36,31 +36,24 @@ class User {
     });
   }
 
-  canICookThis(recipe) {
-    let recipeIngredients = recipe.ingredients
-    let pantryIngredients = this.pantry
+  checkPantry(recipe) {
     let recipeIngredientsInPantry = []
-    recipeIngredients.forEach(recipeIngredient => {
-      let match = pantryIngredients.find(pantryIng => pantryIng.ingredient === recipeIngredient.id)
-      if (match) {
-        recipeIngredientsInPantry.push(match)
-      } else if (!match) {
-        this.shoppingList.push(`{name: ${recipeIngredient.name}, amount: ${recipeIngredient.quantity.amount}}`)
-        return
-      }
-    });
-    recipeIngredientsInPantry.forEach(recipeItem => {
-      if (recipeItem.ingredient === recipeIngredients.id) {
-        if (recipeItem.amount >= recipeIngredients.quantity.amount) {
-          return
-        } else if (recipeItem.amount < recipeIngredients.quantity.amount) {
-          let diff = (recipeIngredients.quantity.amount - recipeItem.amount)
-          this.shoppingList.push(`{name: ${recipeItem.name}, amount: ${diff}}`)
+    recipe.ingredients.forEach((recipeIngredient) => {
+      let answer = this.pantry.find((pantryIng) => pantryIng.ingredient === recipeIngredient.id)
+      recipeIngredientsInPantry.push(answer)
+    })
+    let itemsForShoppingList = recipeIngredientsInPantry.filter(matchingItemInPantry => {
+      for (let i = 0; i < recipe.ingredients.length; i++) {
+        if ((recipe.ingredients[i].id === matchingItemInPantry.ingredient) && 
+        (recipe.ingredients[i].quantity.amount <= matchingItemInPantry.amount)) {
+          return matchingItemInPantry
         }
       }
     })
-    if (recipeIngredients.length === pantryIngredients.length) {
-      return 'You have the ingredients!'
+    if (recipe.ingredients.length === itemsForShoppingList.length) {
+      return "You have the ingredients!"
+    } else {
+      // call the create shopping list function
     }
   }
 }

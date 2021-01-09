@@ -1,7 +1,7 @@
 export const getData = (api) => {
   return fetch(api)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => data)
     .catch(error => console.log(error))
 }
 
@@ -30,5 +30,3 @@ export const deleteData = (api, body) => {
     .then(data => data)
     .catch(error => console.log(error))
 }
-
-

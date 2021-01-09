@@ -4,7 +4,6 @@ class User {
     this.name = name;
     this.pantry = pantry;
     this.favoriteRecipes = [];
-
   }
 
   addToFavorites(recipe) {
@@ -28,6 +27,15 @@ class User {
     return this.favoriteRecipes.filter(recipe => {
       return recipe.name.includes(strgToSrch)
       || recipe.ingredients.find(ingredient => {
+        return ingredient.name.includes(strgToSrch)
+      });
+    });
+  }
+
+  searchRecipesToCook(strgToSrch) {
+    return this.recipesToCook.filter(recipe => {
+      return recipe.name.includes(strgToSrch)
+      || recipe.ingredients.find(indredient => {
         return ingredient.name.includes(strgToSrch)
       });
     });

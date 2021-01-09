@@ -27,7 +27,7 @@ cardArea.addEventListener('click', cardButtonConditionals);
 window.onload = onStartup();
 
 function onStartup() {
-  // getData('http://localhost:3001/api/v1/users')
+  getData('http://localhost:3001/api/v1/users')
   getData("http://localhost:3001/api/v1/ingredients")
   getData("http://localhost:3001/api/v1/recipes")
 
@@ -39,6 +39,15 @@ function onStartup() {
   pantry = new Pantry(newUser.pantry)
   populateCards(cookbook.recipes);
   greetUser();
+}
+
+function getRecipeData(api) {
+  return getData(api)
+}
+
+function getRecipeInstructions(api) {
+  const recipeData = getData(api)
+  return recipeData.map(recipe => recipe.instructions)
 }
 
 function viewFavorites() {

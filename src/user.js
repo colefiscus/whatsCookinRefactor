@@ -59,7 +59,6 @@ class User {
         }
       }
     })
-    console.log(shoppingList);
     if (recipeIngredients.length === pantryIngredients.length) {
       return 'You have the ingredients!'
     }

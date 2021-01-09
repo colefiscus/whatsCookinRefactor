@@ -78,9 +78,7 @@ class User {
         recipeIngredientsInPantry.push(answer)
       }
     })
-
-    console.log(recipeIngredientsInPantry)
-
+    
     recipeIngredientsInPantry.forEach(recInPantryIng => {
       recipe.ingredients.reduce((acc, recIng) => {
         if (recInPantryIng.ingredient === recIng.id && recIng.quantity.amount > recInPantryIng.amount) {

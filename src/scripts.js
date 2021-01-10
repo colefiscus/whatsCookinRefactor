@@ -30,9 +30,9 @@ cardArea.addEventListener('click', cardButtonConditionals);
 window.onload = onStartup();
 
 function onStartup() {
-  getData("http://localhost:3001/api/v1/users")
-  getData("http://localhost:3001/api/v1/ingredients")
-  getData("http://localhost:3001/api/v1/recipes")
+  // getData("http://localhost:3001/api/v1/users")
+  // getData("http://localhost:3001/api/v1/ingredients")
+  // getData("http://localhost:3001/api/v1/recipes")
 
   let userId = (Math.floor(Math.random() * 49) + 1)
   let newUser = users.find(user => {
@@ -65,8 +65,12 @@ function viewFavorites() {
 
 function greetUser() {
   const userName = document.querySelector('.user-name');
-  userName.innerHTML =
+  userName.innerHTML = 
   user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0];
+  
+  const userName1 = document.querySelector(".user-name-small")
+  userName1.innerHTML =
+    user.name.split(" ")[0] + " " + user.name.split(" ")[1][0]
 }
 
 function favoriteCard(event) {
@@ -111,7 +115,7 @@ function cardButtonConditionals(event) {
     })
     user.addToRecipeArray(recipe, user.recipesToCook)
 
-    user.canICookThis(recipe)
+    user.checkPantry(recipe)
   } else if (event.target.classList.contains("home")) {
     favButton.innerHTML = "View Favorites"
     populateCards(cookbook.recipes)

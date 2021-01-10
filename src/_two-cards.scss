@@ -24,15 +24,13 @@
         align-items: center;
         width: 100%;
     }
-     
+
     .greeting-small {
-    // .nav-small {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
         width: 100%;
-        // border: 1px solid blue;
     }
 
     .nav-small {
@@ -41,15 +39,14 @@
         align-items: center;
         margin-top: 1em;
         width: 100%;
-        // border: 1px solid red;
     }
-    
+
     .h1-small,
     .user-name-small {
         width: auto;
         margin: 0;
     }
-    
+
     .navButton-small {
         font-size: 100%;
         background-color: $blue-green;

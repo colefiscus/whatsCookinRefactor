@@ -3,7 +3,6 @@
         width: 350px;
         padding: 0;
         height: 8em;
-        // color: red;
     }
 
     .main-title,
@@ -27,13 +26,11 @@
     }
 
     .greeting-small {
-        // .nav-small {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
         width: 100%;
-        // border: 1px solid blue;
     }
 
     .nav-small {
@@ -42,7 +39,6 @@
         align-items: center;
         margin-top: 1em;
         width: 100%;
-        // border: 1px solid red;
     }
 
     .h1-small,

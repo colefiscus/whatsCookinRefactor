@@ -68,44 +68,51 @@ class User {
     })
 
     recipeIngredientsInPantry.forEach(recIngPantryIng => {
-      this.pantry.reduce((acc, panIng) => {
-        if (recIngPantryIng.id === panIng.ingredient && recIngPantryIng.quantity.amount > panIng.amount && !acc[recIngPantryIng["name"]]) {
+      this.pantry.forEach(panIng => {
+        if (recIngPantryIng.id === panIng.ingredient && recIngPantryIng.quantity.amount > panIng.amount) {
           let amountToBuy = recIngPantryIng.quantity.amount - panIng.amount;
-          acc[recIngPantryIng["name"]] = amountToBuy;
-          this.shoppingList.push(acc)
+          let itemNeeded = {
+            name: recIngPantryIng["name"],
+            id: recIngPantryIng.id,
+            quantity: amountToBuy
+          }
+          this.shoppingList.push(itemNeeded)
         }
-        return acc;
-      }, {});
+      });
     })
 
     recIngsNotPantryIngs.forEach(recNotPantryIng => {
-      recipe.ingredients.reduce((acc, recIng) => {
+      recipe.ingredients.forEach(recIng => {
         if (recIng.id === recNotPantryIng) {
-          acc[recIng["name"]] = recIng["quantity"]["amount"];
-          this.shoppingList.push(acc)
+          let itemNeeded = {
+            name: recIng["name"],
+            id: recIng.id,
+            quantity: recIng["quantity"]["amount"]
+          };
+          this.shoppingList.push(itemNeeded)
         }
-        return acc;
-      }, {})
+      })
     })
 
     console.log("RECIPE INGS.....", recipe.ingredients)
     console.log("INGS WE HAVE.....", this.pantry)
     console.log("SHOPPING LIST.....", this.shoppingList)
-    return this.shoppingList
+    return "You cannot make this recipe, you need more ingredients."
 
   }
 
-  // createShoppingList(recipeIngredientsInPantry, recipe) {
-  //   let itemsForShoppingList = recipeIngredientsInPantry.filter(matchingItemInPantry => {
-  //     for (let i = 0; i < recipe.ingredients.length; i++) {
-  //       if ((recipe.ingredients[i].id === matchingItemInPantry.ingredient) &&
-  //       (recipe.ingredients[i].quantity.amount <= matchingItemInPantry.amount)) {
-  //         this.shoppingList.push(matchingItemInPantry)
-  //       }
-  //     }
-  //   })
-  //   console.log(this.shoppingList)
-  // }
+  calculateCost(ingredientsData) {
+    let costCounter = 0;
+    this.shoppingList.forEach(ingredient => {
+      this.ingredientsData.find(specificIngredient => {
+        if (specificIngredient.id === ingredient.id) {
+          costCounter += (Number(specificIngredient.estimatedCostInCents) *
+          Number(ingredient.quantity.amount))
+        }
+      })
+    });
+    return costCounter;
+  }
 }
 
 export default User;

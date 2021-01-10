@@ -115,6 +115,10 @@ describe('User', () => {
   });
 
   it.only('Should inform User if they lack required ingredients for a given recipe', () => {
-    expect(user1.checkPantry(recipeData[1])).to.eql("You need to buy the following: ");
+    expect(user1.checkPantry(recipeData[1])).to.eql("You cannot make this recipe, you need more ingredients.");
   });
+
+  it('Should inform User how much money buying missing ingredients will cost.', () => {
+
+  })
 })

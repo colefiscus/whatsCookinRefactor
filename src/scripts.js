@@ -80,17 +80,21 @@ function favoriteCard(event) {
     }
   })
   updateStar(event)
-  updateFavoriteArray(event)
+  updateFavoriteArray(event, recipe)
   return recipe
 }
 
 function updateFavoriteArray(event, recipe) {
-  console.log(event.target.id)
-  if (!user.favoriteRecipes.find(recipe => recipe.id === event.target.id)) {
-    user.addToRecipeArray(recipe, user.favoriteRecipes)
+  if (user.favoriteRecipes.length) {
+    if (!user.favoriteRecipes.find(recipe => recipe.id === event.target.id)) {
+      user.addToRecipeArray(recipe, user.favoriteRecipes)
+    } else {
+      user.removeFromRecipeArray(recipe, user.favoriteRecipes)
+    }
   } else {
-    user.removeFromRecipeArray(recipe, user.favoriteRecipes)
+    user.addToRecipeArray(recipe, user.favoriteRecipes)
   }
+  console.log(user.favoriteRecipes)
 }
 
 function updateStar(event) {
@@ -160,16 +164,26 @@ function displayDirections(event) {
 
 function getFavorites() {
   if (user.favoriteRecipes.length) {
-    user.favoriteRecipes.forEach(recipe => {
-      document.querySelector(`.favorite-${recipe.id}`).classList.add('favorite-active')
+    let stars = template.querySelectorAll('.favorite');
+    stars.forEach(star => {
+      // console.log(user.favoriteRecipes)
+      console.log(typeof star.id)
+      if (user.favoriteRecipes.find(recipe => recipe.id === star.id)) {
+        template.querySelector('.favorite').classList.add('favorite-active')
+      }
     })
+    // user.favoriteRecipes.forEach(recipe => {
+    //   if (template.querySelector('.favorite').id = recipe.id) {
+    //     template.querySelector('.favorite').classList.add('favorite-active')
+    //   }
+    // })
   } else {
     return
   }
 }
 
 function populateCards(recipes) {
-  console.log("populate start<><><><><><><>")
+  cardArea.classList.remove('all');
   allCards.innerHTML = "";
   recipes.forEach(recipe => {
     let card = template.cloneNode(true);

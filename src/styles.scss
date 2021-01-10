@@ -1,5 +1,5 @@
 
-$active: #D1AA8E;
+// $active: #D1AA8E;
 $blue: #AECED1;
 $green: #9CD199;
 $blue-green: #A3D1BB;
@@ -113,7 +113,7 @@ main {
   display: grid;
   gap: 30px;
   grid-template-columns: repeat(4, 1fr);
-  padding-top: 30px;
+  padding: 30px 0;
   margin: auto;
   width: 900px;
 }
@@ -237,3 +237,4 @@ img {
 
 @import 'three-cards';
 @import 'two-cards';
+@import 'one-card';

@@ -1,8 +1,9 @@
-@media only screen and (max-width: 930px) {
+@media only screen and (max-width: 480px) {
     .main-header {
-        width: 500px;
+        width: 350px;
         padding: 0;
         height: 8em;
+        // color: red;
     }
 
     .main-title,
@@ -24,9 +25,9 @@
         align-items: center;
         width: 100%;
     }
-     
+
     .greeting-small {
-    // .nav-small {
+        // .nav-small {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
@@ -43,13 +44,13 @@
         width: 100%;
         // border: 1px solid red;
     }
-    
+
     .h1-small,
     .user-name-small {
         width: auto;
         margin: 0;
     }
-    
+
     .navButton-small {
         font-size: 100%;
         background-color: $blue-green;
@@ -70,9 +71,9 @@
     .all-cards {
         display: grid;
         gap: 30px;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
         padding-top: 15px;
         margin: auto;
-        width: 500px;
+        width: 350px;
     }
 }

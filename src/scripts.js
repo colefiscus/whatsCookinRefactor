@@ -20,8 +20,8 @@ let cookbook = new Cookbook(recipeData);
 let user, pantry;
 
 //template selctors
-// let allCards = document.querySelector('.all-cards')
-// let card = document.querySelector('.card');
+let allCards = document.querySelector('.all-cards')
+let template = document.querySelector('.template').content;
 // let template = card.cloneNode(true)
 // let cardHeader = template.querySelector('.card-header')
 // let addButton = template.querySelector('.add-button')
@@ -176,49 +176,51 @@ function getFavorites() {
   }
 }
 
-// function populateCards(recipes) {
-//   console.log("populate start<><><><><><><>")
-//   allCards.innerHTML = "";
-//   recipes.forEach(recipe => {
-//     let template = document.importNode(card.content, true);
-//     template.querySelector('.card-header').setAttribute("id", recipe.id)
-//     template.querySelector('.add-button').setAttribute("id", recipe.id)
-//     template.querySelector('.favorite').setAttribute("id", recipe.id);
-//     template.querySelector('.recipe-name').textContent = `${recipe.name}`;
-//     template.querySelector('.card-picture').setAttribute("src", recipe.image);
-//     template.querySelector('.card-picture').setAttribute("alt", `click to view recipe for ${recipe.name}`);
-//     allCards.appendChild(template);
-//   })
-// }
-
-
-
 function populateCards(recipes) {
-  cardArea.innerHTML = '';
-  if (cardArea.classList.contains('all')) {
-    cardArea.classList.remove('all')
-  }
+  console.log("populate start<><><><><><><>")
+  allCards.innerHTML = "";
   recipes.forEach(recipe => {
-    cardArea.insertAdjacentHTML(
-      "afterbegin",
-      `<div id='${recipe.id}'
-    class='card'>${recipe.id}
-        <header id='${recipe.id}' class='card-header'>
-          <label for='add-button' class='hidden'>Click to add recipe</label>
-          <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-            <img id='${recipe.id} favorite' class='add add-button'
-            src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-            recipes to cook'>
-          </button>
-          <label for='favorite-button' class='hidden'>Click to favorite recipe
-          </label>
-          <button id='${recipe.id}' aria-label='favorite-button' class='favorite ${recipe.id} card-button'></button>
-        </header>
-          <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-          <img id='${recipe.id}' tabindex='0' class='card-picture'
-          src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
-    </div>`
-    )
+    let card = template.cloneNode(true);
+    allCards.appendChild(card);
+    template.querySelector('.card-header').setAttribute("id", recipe.id)
+    template.querySelector('.add-button').setAttribute("id", recipe.id)
+    template.querySelector('.favorite').setAttribute("id", recipe.id);
+    template.querySelector('.recipe-name').textContent = `${recipe.name}`;
+    template.querySelector('.card-picture').setAttribute("src", recipe.image);
+    template.querySelector('.card-picture').setAttribute("id", recipe.id);
+    template.querySelector('.card-picture').setAttribute("alt", `click to view recipe for ${recipe.name}`);
+    
   })
-  getFavorites();
 }
+
+
+
+// function populateCards(recipes) {
+//   cardArea.innerHTML = '';
+//   if (cardArea.classList.contains('all')) {
+//     cardArea.classList.remove('all')
+//   }
+//   recipes.forEach(recipe => {
+//     cardArea.insertAdjacentHTML(
+//       "afterbegin",
+//       `<div id='${recipe.id}'
+//     class='card'>${recipe.id}
+//         <header id='${recipe.id}' class='card-header'>
+//           <label for='add-button' class='hidden'>Click to add recipe</label>
+//           <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
+//             <img id='${recipe.id} favorite' class='add add-button'
+//             src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
+//             recipes to cook'>
+//           </button>
+//           <label for='favorite-button' class='hidden'>Click to favorite recipe
+//           </label>
+//           <button id='${recipe.id}' aria-label='favorite-button' class='favorite ${recipe.id} card-button'></button>
+//         </header>
+//           <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
+//           <img id='${recipe.id}' tabindex='0' class='card-picture'
+//           src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
+//     </div>`
+//     )
+//   })
+//   getFavorites();
+// }

@@ -166,10 +166,6 @@ img {
 }
 
 @media only screen and (max-width: 1200px) {
-  .user-info {
-    color: brown;
-  }
-
   .main-header {
     width: 700px;
   }
@@ -187,6 +183,7 @@ img {
   .main-header {
     width: 500px;
     padding: 0;
+    height: 8em;
   }
 
   .main-title,
@@ -209,20 +206,41 @@ img {
     width: 100%;
   }
 
-  .greeting-small {
+  .greeting-small,
+.nav-small {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    width: 500px;
+    width: 100%;
+  }
+
+  .nav-small {
+    margin-top: 1em;
+    width: 60%;
   }
 
   .h1-small,
 .user-name-small {
-    font-weight: 400;
-    width: 200px;
-    padding: 0;
+    width: auto;
     margin: 0;
+  }
+
+  .navButton-small {
+    text-align: center;
+    font-size: 100%;
+    background-color: #A3D1BB;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px #37515C;
+    width: 8em;
+    padding: auto;
+  }
+  .navButton-small:hover {
+    cursor: pointer;
+    background-color: #5faf89;
+  }
+  .navButton-small:active {
+    background-color: #387055;
   }
 
   .all-cards {

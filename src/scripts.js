@@ -81,6 +81,10 @@ function greetUser() {
   const userName = document.querySelector('.user-name');
   userName.innerHTML = 
   user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0];
+  
+  const userName1 = document.querySelector(".user-name-small")
+  userName1.innerHTML =
+    user.name.split(" ")[0] + " " + user.name.split(" ")[1][0]
 }
 
 function favoriteCard(event) {

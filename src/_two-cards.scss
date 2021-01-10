@@ -2,6 +2,7 @@
     .main-header {
         width: 500px;
         padding: 0;
+        height: 8em;
     }
 
     .main-title,
@@ -23,26 +24,47 @@
         align-items: center;
         width: 100%;
     }
-    
-    .greeting-small {
-        // border: 1px solid red;
+     
+    .greeting-small,
+    .nav-small {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
-        width: 500px;
+        width: 100%;
+        // border: 1px solid blue;
+    }
+
+    .nav-small {
+        margin-top: 1em;
+        width: 60%;
     }
     
     .h1-small,
     .user-name-small {
-        font-weight: 400;
-        // border: 1px solid blue;
-        width: 200px;
-        padding: 0;
+        // border: 1px solid red;
+        width: auto;
         margin: 0;
     }
+    
+    .navButton-small {
+        text-align: center;
+        font-size: 100%;
+        background-color: $blue-green;
+        border-radius: 5px;
+        box-shadow: 2px 2px 10px #37515C;
+        width: 8em;
+        padding: auto;
 
+        &:hover {
+            cursor: pointer;
+            background-color: darken($blue-green, 20%);
+        }
 
+        &:active {
+            background-color: darken($blue-green, 40%);
+        }
+    }
 
     .all-cards {
         display: grid;

@@ -1,5 +1,4 @@
 
-
 $active: #D1AA8E;
 $blue: #AECED1;
 $green: #9CD199;
@@ -26,13 +25,13 @@ body {
   border-bottom: 2px solid darken($blue-green, 40%);
   border-right: 2px solid darken($blue-green, 40%);
   border-left: 2px solid darken($blue-green, 40%);
-  border-radius: 5px;
+  border-radius: 0 0 5px 5px;
   display: flex;
   height: 7em;
   justify-content: space-between;
   margin: auto;
   padding-right: 2em;
-  width: 70%;
+  width: 900px;
 
   h1 {
     font-size: 200%;
@@ -61,7 +60,6 @@ body {
     &:hover {
       cursor: pointer;
       background-color: darken($blue-green, 20%);
-      ;
     }
 
     &:active {
@@ -72,7 +70,7 @@ body {
 
 main {
   height: 90vh;
-  width: 90vh;
+  width: 90vw;
   margin: auto;
 }
 
@@ -113,10 +111,11 @@ main {
 
 .all-cards {
   display: grid;
-  gap: 20px;
+  gap: 30px;
   grid-template-columns: repeat(4, 1fr);
-  padding-top: 15px;
+  padding-top: 30px;
   margin: auto;
+  width: 900px;
 }
 
 // ----- INDIVIDUAL CARDS -----
@@ -221,11 +220,16 @@ img {
 .card-picture {
 
   height: 90%;
-  margin: 0 .5em .5em .5em;
+  margin: .5em .5em .5em .5em;
   width: 90%;
   overflow: hidden;
   box-shadow: 2px 2px 10px #37515C;
 }
+
+.small {
+  display: none;
+}
+
 
 .hidden {
   display: none;

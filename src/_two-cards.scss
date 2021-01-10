@@ -1,6 +1,55 @@
-@media only screen and (max-width: 666px) {
-    .user-info {
+@media only screen and (max-width: 930px) {
+    .main-header {
+        width: 500px;
+        padding: 0;
+    }
 
-        color: red;
+    .main-title,
+    .user-info,
+    .navButton {
+        display: none;
+    }
+
+    .small {
+        align-self: center;
+        display: flex;
+        margin: auto;
+    }
+
+    .main-header-small {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .greeting-small {
+        // border: 1px solid red;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 500px;
+    }
+    
+    .h1-small,
+    .user-name-small {
+        font-weight: 400;
+        // border: 1px solid blue;
+        width: 200px;
+        padding: 0;
+        margin: 0;
+    }
+
+
+
+    .all-cards {
+        display: grid;
+        gap: 30px;
+        grid-template-columns: repeat(2, 1fr);
+        padding-top: 15px;
+        margin: auto;
+        width: 500px;
     }
 }

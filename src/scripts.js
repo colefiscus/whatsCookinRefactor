@@ -79,7 +79,7 @@ function viewFavorites() {
 
 function greetUser() {
   const userName = document.querySelector('.user-name');
-  userName.innerHTML =
+  userName.innerHTML = 
   user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0];
 }
 

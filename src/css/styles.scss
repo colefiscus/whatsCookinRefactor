@@ -17,13 +17,13 @@ body {
   border-bottom: 2px solid #387055;
   border-right: 2px solid #387055;
   border-left: 2px solid #387055;
-  border-radius: 5px;
+  border-radius: 0 0 5px 5px;
   display: flex;
   height: 7em;
   justify-content: space-between;
   margin: auto;
   padding-right: 2em;
-  width: 70%;
+  width: 900px;
 }
 .main-header h1 {
   font-size: 200%;
@@ -57,16 +57,17 @@ body {
 
 main {
   height: 90vh;
-  width: 90vh;
+  width: 90vw;
   margin: auto;
 }
 
 .all-cards {
   display: grid;
-  gap: 20px;
+  gap: 30px;
   grid-template-columns: repeat(4, 1fr);
-  padding-top: 15px;
+  padding-top: 30px;
   margin: auto;
+  width: 900px;
 }
 
 .add-button {
@@ -150,10 +151,14 @@ img {
 
 .card-picture {
   height: 90%;
-  margin: 0 0.5em 0.5em 0.5em;
+  margin: 0.5em 0.5em 0.5em 0.5em;
   width: 90%;
   overflow: hidden;
   box-shadow: 2px 2px 10px #37515C;
+}
+
+.small {
+  display: none;
 }
 
 .hidden {
@@ -161,21 +166,72 @@ img {
 }
 
 @media only screen and (max-width: 1200px) {
-  .all-cards {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(3, 1fr);
-    padding-top: 15px;
-    margin: auto;
-  }
-
   .user-info {
     color: brown;
   }
+
+  .main-header {
+    width: 700px;
+  }
+
+  .all-cards {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+    padding-top: 15px;
+    margin: auto;
+    width: 700px;
+  }
 }
-@media only screen and (max-width: 666px) {
-  .user-info {
-    color: red;
+@media only screen and (max-width: 930px) {
+  .main-header {
+    width: 500px;
+    padding: 0;
+  }
+
+  .main-title,
+.user-info,
+.navButton {
+    display: none;
+  }
+
+  .small {
+    align-self: center;
+    display: flex;
+    margin: auto;
+  }
+
+  .main-header-small {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .greeting-small {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 500px;
+  }
+
+  .h1-small,
+.user-name-small {
+    font-weight: 400;
+    width: 200px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .all-cards {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(2, 1fr);
+    padding-top: 15px;
+    margin: auto;
+    width: 500px;
   }
 }
 

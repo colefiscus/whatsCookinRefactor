@@ -7,17 +7,37 @@
   <title>Whats Cookin</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="./css/styles.css">
 </head>
 
 <body>
   <header class='main-header'>
-    <h1>What's Cookin'</h1>
+    <h1 class="main-title">What's Cookin'</h1>
     <p class='user-info'>Welcome, <span class='user-name'>User</span>.</p>
     <label for='home-button' class='hidden'>Homepage button</label>
     <button id='home-button' class='home navButton'>Home</button>
     <label for='view-favorites-button' class='hidden'>View favorites</label>
     <button id='view-favorites-button' class=' view-favorites navButton'>View Favorites</button>
+    
+    <!-- small header -->
+
+    <header class="main-header-small small">
+
+      <div class="greeting-small small">
+        <h1 class="h1-small small">What's Cookin'</h1>
+        <h1 class='user-name user-name-small small'>User</h1>
+      </div>
+
+      <div class="nav-small small">
+        <label for='home-button' class='hidden'>Homepage button</label>
+        <button id='home-button' class='home-small navButton-small small'>Home</button>
+        <label for='view-favorites-button' class='hidden'>View favorites</label>
+        <button id='view-favorites-button' class='view-favorites-small navButton-small small'>View Favorites</button>
+      </div>
+
+    </header>
+    
+    <!-- search bar -->
     <!-- <form class='search-bar'>
         <label for='search-button' class='hidden'>Click here to search here</label>
         <button id='search-button' class='search-button'>

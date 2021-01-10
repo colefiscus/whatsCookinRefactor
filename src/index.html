@@ -46,13 +46,28 @@
         <label for='search-input' class='hidden'>Type search query here</label>
         <input id='search-input' class='search-input' type='text' placeholder='Search recipes by name or ingredients' value=''>
       </form> -->
-  </header>
-  <main>
-    <section class='all-cards'>
-    </section>
-  </main>
-  <!-- <script type="text/javascript" src="./cookbook.js"></script> -->
-  <script type="text/javascript" src="./main.bundle.js"></script>
-</body>
-
+    </header>
+    <main>
+      <section class='all-cards'>
+        <template class='template'>
+          <section class="card">
+            <header class='card-header'>
+              <label for='add-button' class='hidden'>Click to add recipe</label>
+              <button class="add-button card-button" aria-label='add-button'>
+                <img id='favorite' class='add add-button'
+                src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
+                recipes to cook'>
+              </button>
+              <button aria-label='favorite-button' class='favorite favorite-active card-button'>
+              </button>
+            </header>
+            <span class="recipe-name"></span>
+            <img tabindex="0" class="card-picture" src="" alt="Food from recipe">
+          </section>
+        </template>
+      </section>
+    </main>
+    <!-- <script type="text/javascript" src="./cookbook.js"></script> -->
+    <script type="text/javascript" src="./main.bundle.js"></script>
+  </body>
 </html>

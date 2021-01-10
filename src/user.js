@@ -46,22 +46,10 @@ class User {
     })
     if (recipe.ingredients.length === recipeIngredientsInPantry.length) {
       console.log("You have the ingredients!")
+      return "You have the ingredients!"
     } else {
-      this.createShoppingList(recipe, recipeIngredientsInPantry);
+      return this.createShoppingList(recipe);
     }
-    //   let recipeItemsWeHave = recipeIngredientsInPantry.filter(matchingItemInPantry => {
-    //     for (let i = 0; i < recipe.ingredients.length; i++) {
-    //       console.log(matchingItemInPantry)
-    //       if ((recipe.ingredients[i].id === matchingItemInPantry.ingredient) &&
-    //       (recipe.ingredients[i].quantity.amount <= matchingItemInPantry.amount)) {
-    //         return matchingItemInPantry
-    //       } else {
-    //         console.log("You CANNOT cook this.")
-    //         // this.createShoppingList(recipeIngredientsInPantry, recipe)
-    //       }
-    //     }
-    //   }
-    // }
   }
 
   createShoppingList(recipe) {
@@ -78,13 +66,12 @@ class User {
         recipeIngredientsInPantry.push(answer)
       }
     })
-    
-    recipeIngredientsInPantry.forEach(recInPantryIng => {
-      recipe.ingredients.reduce((acc, recIng) => {
-        if (recInPantryIng.ingredient === recIng.id && recIng.quantity.amount > recInPantryIng.amount) {
-          console.log("SOMETHING WE HAVE BUT NOT ENOUGH OF!!!")
-          let amountToBuy = recIng.quantity.amount - recInPantryIng.amount;
-          acc[[recIng]["name"]] = amountToBuy;
+
+    recipeIngredientsInPantry.forEach(recIngPantryIng => {
+      this.pantry.reduce((acc, panIng) => {
+        if (recIngPantryIng.id === panIng.ingredient && recIngPantryIng.quantity.amount > panIng.amount && !acc[recIngPantryIng["name"]]) {
+          let amountToBuy = recIngPantryIng.quantity.amount - panIng.amount;
+          acc[recIngPantryIng["name"]] = amountToBuy;
           this.shoppingList.push(acc)
         }
         return acc;
@@ -100,7 +87,11 @@ class User {
         return acc;
       }, {})
     })
-    // console.log("Shopping List?????", this.shoppingList);
+
+    console.log("RECIPE INGS.....", recipe.ingredients)
+    console.log("INGS WE HAVE.....", this.pantry)
+    console.log("SHOPPING LIST.....", this.shoppingList)
+    return this.shoppingList
 
   }
 

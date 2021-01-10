@@ -8,7 +8,6 @@ let recipe;
 
 describe('Recipe', () => {
   beforeEach(() => {
-
     recipe = new Recipe(recipeData[47], ingredientsData);
   });
 

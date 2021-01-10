@@ -6,7 +6,7 @@ import Cookbook from '../src/cookbook';
 
 let cookbook;
 
-describe('User', () => {
+describe('Cookbook', () => {
   beforeEach(() => {
     cookbook = new Cookbook(recipeData);
   });

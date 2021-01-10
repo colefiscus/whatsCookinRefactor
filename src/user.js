@@ -76,7 +76,11 @@ class User {
             id: recIngPantryIng.id,
             quantity: amountToBuy
           }
-          this.shoppingList.push(itemNeeded)
+
+          let itemIDsAlreadyAdded = this.shoppingList.map(ing => ing.id)
+          if (!itemIDsAlreadyAdded.includes(itemNeeded.id)) {
+            this.shoppingList.push(itemNeeded)
+          }
         }
       });
     })

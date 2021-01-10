@@ -44,7 +44,7 @@ class User {
       });
     });
   }
-}
+
 
   canICookThis(recipe) {
     let recipeIngredients = recipe.ingredients

@@ -19,6 +19,16 @@ let cardArea = document.querySelector('.all-cards');
 let cookbook = new Cookbook(recipeData);
 let user, pantry;
 
+//template selctors
+// let allCards = document.querySelector('.all-cards')
+// let card = document.querySelector('.card');
+// let template = card.cloneNode(true)
+// let cardHeader = template.querySelector('.card-header')
+// let addButton = template.querySelector('.add-button')
+// let favoriteButton = template.querySelector('.favorite')
+// let recipeName = template.querySelector('.recipe-name')
+// let recipeImage = template.querySelector('.card-picture')
+
 homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
@@ -165,6 +175,23 @@ function getFavorites() {
     return
   }
 }
+
+// function populateCards(recipes) {
+//   console.log("populate start<><><><><><><>")
+//   allCards.innerHTML = "";
+//   recipes.forEach(recipe => {
+//     let template = document.importNode(card.content, true);
+//     template.querySelector('.card-header').setAttribute("id", recipe.id)
+//     template.querySelector('.add-button').setAttribute("id", recipe.id)
+//     template.querySelector('.favorite').setAttribute("id", recipe.id);
+//     template.querySelector('.recipe-name').textContent = `${recipe.name}`;
+//     template.querySelector('.card-picture').setAttribute("src", recipe.image);
+//     template.querySelector('.card-picture').setAttribute("alt", `click to view recipe for ${recipe.name}`);
+//     allCards.appendChild(template);
+//   })
+// }
+
+
 
 function populateCards(recipes) {
   cardArea.innerHTML = '';

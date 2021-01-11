@@ -4,14 +4,14 @@ import './css/styles.scss';
 
 import recipeData from './data/recipes';
 import ingredientsData from "./data/ingredients"
-import users from './data/users';
+// import users from './data/users';
 
 import Pantry from './pantry';
 import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
 
-import { getData, postData, deleteData } from './util.js';
+import { getUser, postData, deleteData } from './util.js';
 
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
@@ -30,19 +30,25 @@ cardArea.addEventListener('click', cardButtonConditionals);
 window.onload = onStartup();
 
 function onStartup() {
-  // getData("http://localhost:3001/api/v1/users")
+  user = getUser()
+  
   // getData("http://localhost:3001/api/v1/ingredients")
   // getData("http://localhost:3001/api/v1/recipes")
 
-  let userId = (Math.floor(Math.random() * 49) + 1)
-  let newUser = users.find(user => {
-    return user.id === Number(userId);
-  });
-  user = new User(userId, newUser.name, newUser.pantry, ingredientsData)
-  pantry = new Pantry(newUser.pantry)
+  console.log("INSIDE THE SCRIPTS.JS>>>>>>>", user)
+  pantry = new Pantry(user.pantry)
+  // console.log(pantry)
   populateCards(cookbook.recipes);
   greetUser();
 }
+
+// function createRandomUser() {
+//   let userId = (Math.floor(Math.random() * 49) + 1)
+//   let newUser = users.find(user => {
+//     return user.id === Number(userId);
+//   });
+//   user = new User(userId, newUser.name, newUser.pantry, ingredientsData)
+// }
 
 function getRecipeData(api) {
   return getData(api)

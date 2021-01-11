@@ -1,19 +1,20 @@
 /* eslint-disable max-len */
 class User {
-  constructor(id, name, pantry) {
+  constructor(id, name, pantry, ingredientsData) {
     this.id = id;
     this.name = name;
     this.pantry = pantry;
     this.favoriteRecipes = [];
     this.recipesToCook = [];
     this.shoppingList = [];
+    this.ingredientsData = ingredientsData;
   }
 
   addToRecipeArray(recipe, array) {
     if (!array.includes(recipe)) {
       array.push(recipe)
-      // console.log(this.recipesToCook)
     }
+    return array
   }
 
   removeFromRecipeArray(recipe, array) {
@@ -45,69 +46,81 @@ class User {
     });
   }
 
-
   checkPantry(recipe) {
     let recipeIngredients = recipe.ingredients
     let pantryIngredients = this.pantry
     let recipeIngredientsInPantry = []
-    let shoppingList = []
-    recipeIngredients.forEach(recipeIngredient => {
-        let match = pantryIngredients.find(pantryIng => pantryIng.ingredient === recipeIngredient.id)
-        if (match) {
-        recipeIngredientsInPantry.push(match)
-        } else if (!match) {
-        shoppingList.push(`{name: ${recipeIngredient.name}, amount: ${recipeIngredient.quantity.amount}, unit: ${recipeIngredient.quantity.unit}}`)
-      }
-    });
-    recipeIngredientsInPantry.forEach(recipeItem => {
-      if (recipeItem.ingredient === recipeIngredients.id) {
-        if (recipeItem.amount >= recipeIngredients.quantity.amount) {
-          return
-        } else if (recipeItem.amount < recipeIngredients.quantity.amount) {
-          let diff = (recipeIngredients.quantity.amount - recipeItem.amount)
-          shoppingList.push(`{name: ${recipeItem.name}, amount: ${diff}, unit: ${recipeIngredient.quantity.unit}}`)
-        }
+    recipe.ingredients.forEach((recipeIngredient) => {
+      let answer = this.pantry.find((pantryIng) => pantryIng.ingredient === recipeIngredient.id && pantryIng.amount >= recipeIngredient.quantity.amount)
+      if (answer) {
+        recipeIngredientsInPantry.push(answer)
       }
     })
-    console.log(shoppingList);
+    if (recipe.ingredients.length === recipeIngredientsInPantry.length) {
+      return "You have the ingredients!"
+    } else {
+      return this.createShoppingList(recipe);
+    }
   }
 
-  // canICookThis(recipe) {
-  //   let recipeIngredients = recipe.ingredients
-  //   let pantryIngredients = this.pantry
-  //   if (recipeIngredients.every(item => pantryIngredients.includes(item.id))) {
-  //     console.log('you can cook this!')
-  //     return
-  //   }
-  //   let ingredientsThatMatch = []
-  //   let successCount = []
-  //   let shoppingList = []
-  //   recipeIngredients.forEach((ingredient, i) => {
-  //     let foundIngredient = pantryIngredients.find(pIng => pIng.ingredient === ingredient.id)
-  //     ingredientsThatMatch.push(foundIngredient)
-  //     // console.log(foundIngredient)
-  //     if (ingredientsThatMatch.length === recipeIngredients.length && ingredient.quantity.amount <= foundIngredient.amount) {
-  //     successCount.push(true)
-  //     } else {
-  //     // create shopping list
-  //     console.log(foundIngredient.amount)
-  //     let ingredientDifference = (ingredient.quantity.amount - foundIngredient.amount)
-  //     shoppingList.push(`You need ${ingredientDifference} of ${ingredient.name} to be able to cook this`)
-  //     // actually want to push an object with name and diff
-  //       }
-  //     })
-  //     if (successCount.length === recipe.length){
-  //     console.log('yan can cook')
-  //     } else {
-  //     console.log("shoppingList>>>>", shoppingList)
-  //     console.log('yan cannot cook')
-  //     }
-  //   // console.log('line quantity amount', line.quantity.amount)
-  //   // console.log('found ingredient', foundIngredient.amount)
-  //   // console.log('ingredientsThatMatch', ingredientsThatMatch.length)
-  //   // console.log('num of rec ings', recipe.length)
-  // }
+  createShoppingList(recipe) {
+    this.shoppingList = [];
+    let recIngs = recipe.ingredients.map(recIng => recIng.id)
+    let pantryIngs = this.pantry.map(pantryIng => pantryIng.ingredient)
+    let recIngsNotPantryIngs = recIngs.filter(recIng => {
+      return recIngs.includes(recIng) && !pantryIngs.includes(recIng)
+    })
+    let recipeIngredientsInPantry = [];
+    this.pantry.forEach(pantryIng => {
+      let answer = recipe.ingredients.find(recipeIng => recipeIng.id === pantryIng.ingredient)
+      if (answer && !recipeIngredientsInPantry.includes(answer)) {
+        recipeIngredientsInPantry.push(answer)
+      }
+    })
+    recipeIngredientsInPantry.forEach(recIngPantryIng => {
+      this.pantry.forEach(panIng => {
+        if (recIngPantryIng.id === panIng.ingredient && recIngPantryIng.quantity.amount > panIng.amount) {
+          let amountToBuy = recIngPantryIng.quantity.amount - panIng.amount;
+          let itemNeeded = {
+            name: recIngPantryIng["name"],
+            id: recIngPantryIng.id,
+            quantity: amountToBuy
+          }
+          let itemIDsAlreadyAdded = this.shoppingList.map(ing => ing.id)
+          if (!itemIDsAlreadyAdded.includes(itemNeeded.id)) {
+            this.shoppingList.push(itemNeeded)
+          }
+        }
+      });
+    })
+    recIngsNotPantryIngs.forEach(recNotPantryIng => {
+      recipe.ingredients.forEach(recIng => {
+        if (recIng.id === recNotPantryIng) {
+          let itemNeeded = {
+            name: recIng["name"],
+            id: recIng.id,
+            quantity: recIng["quantity"]["amount"]
+          };
+          this.shoppingList.push(itemNeeded)
+        }
+      })
+    })
+    let priceOfIngs = this.calculateCost()
+    return `You cannot make ${recipe.name}; you need more ingredients. The cost is $${priceOfIngs}.`
+  }
 
+  calculateCost() {
+    let costCounter = 0;
+    this.shoppingList.forEach(ingredient => {
+      this.ingredientsData.find(specificIngredient => {
+        if (specificIngredient.id === ingredient.id) {
+          costCounter += (Number(specificIngredient.estimatedCostInCents) *
+          Number(ingredient.quantity))
+        }
+      })
+    })
+    return (costCounter / 100).toFixed(2);
+  }
 }
 
 export default User;

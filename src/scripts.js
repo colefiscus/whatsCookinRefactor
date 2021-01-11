@@ -38,7 +38,7 @@ function onStartup() {
   let newUser = users.find(user => {
     return user.id === Number(userId);
   });
-  user = new User(userId, newUser.name, newUser.pantry)
+  user = new User(userId, newUser.name, newUser.pantry, ingredientsData)
   pantry = new Pantry(newUser.pantry)
   populateCards(cookbook.recipes);
   greetUser();

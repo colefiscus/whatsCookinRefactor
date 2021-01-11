@@ -30,12 +30,17 @@ cardArea.addEventListener('click', cardButtonConditionals);
 window.onload = onStartup();
 
 function onStartup() {
-  user = getUser()
-  
+  const result = getUser()
+    .then((userObject) => {
+      console.log("user object", userObject)
+      userObject.name = user.name
+    })
+    .catch((error) => console.log(error))
+  console.log(result)
   // getData("http://localhost:3001/api/v1/ingredients")
   // getData("http://localhost:3001/api/v1/recipes")
 
-  console.log("INSIDE THE SCRIPTS.JS>>>>>>>", user)
+  // console.log("INSIDE THE SCRIPTS.JS>>>>>>>", user)
   pantry = new Pantry(user.pantry)
   // console.log(pantry)
   populateCards(cookbook.recipes);

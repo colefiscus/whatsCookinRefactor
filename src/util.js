@@ -14,7 +14,6 @@ export const getUser = () => {
   return fetch("http://localhost:3001/api/v1/users")
     .then(response => response.json())
     .then(users => createRandomUser(users))
-    .catch(error => console.log(error))
 }
 
 export const postData = (api, body) => {

@@ -1,0 +1,17 @@
+@media only screen and (max-width: 1200px) {
+
+    .main-header {
+        width: 700px;
+    }
+
+    .all-cards {
+        display: grid;
+        gap: 30px;
+        grid-template-columns: repeat(3, 1fr);
+        padding-top: 15px;
+        margin: auto;
+        width: 700px;
+    }
+
+}
+

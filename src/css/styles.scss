@@ -1,100 +1,77 @@
 html {
-  background-color: #37515C;
-  border: 2px solid #000;
   height: 100vh;
+  padding-bottom: 3em;
 }
 
 body {
   box-sizing: border-box;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Lato", sans-serif;
   margin: auto;
+  background: #A3D1BB;
+  background: radial-gradient(circle, #A3D1BB 0%, #9CD199 77%, #AECED1 100%);
 }
-
 
 .main-header {
-  background-color: #EBF5EE;
-  border: 2px solid #000;
+  align-items: center;
+  background-color: #5faf89;
+  border-bottom: 2px solid #387055;
+  border-right: 2px solid #387055;
+  border-left: 2px solid #387055;
+  border-radius: 0 0 5px 5px;
   display: flex;
-  height: auto;
+  height: 7em;
   justify-content: space-between;
-  width: 100%;
+  margin: auto;
+  padding-right: 2em;
+  width: 900px;
 }
-
-.navButton {
-  background-color: #EBF5EE;
-  border-left: 1px solid #000;
-  border-right: 1px solid #000;
-  font-size: 130%;
-  margin: 1%;
-}
-
-h1 {
-  border-right: 2px solid #000;
-  font-size: 255%;
+.main-header h1 {
+  font-size: 200%;
   margin-top: 0;
   margin-bottom: 0;
-  padding-top: 10px;
   text-align: center;
   width: 30%;
+  font-weight: 700;
 }
-
-.user-info {
+.main-header .user-info {
   font-size: 180%;
   margin: auto;
   text-align: center;
-  width: 40%
-}
-
-.search-bar {
-  display: flex;
-  height: 100%;
-  margin: 10px 0px 10px 0px;
   width: 30%;
 }
-
-.search-button {
-  background-color: #EBF5EE;
-  border: 1px solid #000;
-  width: 20%;
-  height: 58px;
-  margin-top: 3px;
+.main-header .navButton {
+  background-color: #A3D1BB;
+  font-size: 130%;
+  margin: 1%;
+  height: 50%;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px #37515C;
+}
+.main-header .navButton:hover {
+  cursor: pointer;
+  background-color: #5faf89;
+}
+.main-header .navButton:active {
+  background-color: #387055;
 }
 
-.search-image:hover,
-.card-button:hover,
-.navButton:hover,
-.search-button:hover {
-  background-color: #cff2da;
+main {
+  height: 90vh;
+  width: 90vw;
+  margin: auto;
 }
 
-
-.search-image:active,
-.card-button:active,
-.navButton:active,
-.search-button:active {
-  background-color: #C3C2C6;
+.all-cards {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 30px 0;
+  margin: auto;
+  width: 900px;
 }
-
-.search-input {
-  border: 1px solid #000;
-  font-size: 100%;
-  height: 7vh;
-  margin: 3px 7px 0px 0px;
-  padding-left: 10px;
-  width: 90%;
-}
-
-
-.card-button {
-  border: 1px solid #000;
-  height: 27px;
-  margin: 3px;
-}
-
-
 
 .add-button {
-  background-color: #EBF5EE;
+  background-color: #ECFBFF;
   display: flex;
   width: 12%;
 }
@@ -103,43 +80,64 @@ h1 {
   width: 100%;
 }
 
-.hidden {
-  display: none;
-}
-
-
-.favorite {
-  background-color: #EBF5EE;
-  background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 13%;
-}
-
-.all-cards {
-  display: grid;
-  grid-gap: 30px;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 30px 0 30px 30px;
-  width: 95.5vw;
-}
-
 img {
   cursor: pointer;
 }
 
 .card {
-  background-color: #D7F2FE;
-  border: 3px solid #000;
+  background-color: #ECFBFF;
+  border: 2px solid #566f63;
+  box-shadow: 2px 2px 5px #566f63;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  height: 15em;
   width: 100%;
 }
 
-
 .card-header {
-  background-color: #EBF5EE;
-  border-bottom: 1px solid #000;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 2.5em;
+  margin-top: 5px;
+}
+.card-header button {
+  border: none;
+  height: 2em;
+  width: 2em;
+  margin: 0 1em;
+  background-color: #ECFBFF;
+}
+
+.add-button {
+  margin-top: 0.2em;
+}
+
+.favorite {
+  background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  background-color: #AECED1;
+}
+
+.favorite-active {
+  background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.recipe-name {
+  display: block;
+  font-size: 100%;
+  text-align: center;
+  padding: 0.2em 0.4em;
+  line-height: 1;
+  height: 2.85em;
+  color: #405249;
 }
 
 .all {
@@ -159,35 +157,190 @@ h3 {
   font-size: 250%;
 }
 
-.recipe-name {
-
-  display: block;
-  font-size: 150%;
-  text-align: center;
-}
-
 .card-picture:hover {
   opacity: 0.7;
+  box-shadow: -2px -2px 10px #37515C;
 }
 
 .card-picture:active {
-  border: 2px solid #000;
+  border: 2px solid #405249;
 }
 
 .card-picture {
-  border: 1px solid #000;
-  height: 200px;
-  margin: 10px 3% 8px 2.6%;
-  width: 94%;
+  height: 90%;
+  margin: 0.5em 0.5em 0.5em 0.5em;
+  width: 90%;
+  overflow: hidden;
+  box-shadow: 2px 2px 10px #37515C;
 }
 
-main {
-  background-color: #37515C;
-  height: 100%;
-  width: 100%;
+.small {
+  display: none;
 }
 
-.favorite-active {
-  background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
-  background-repeat: no-repeat;
+.hidden {
+  display: none;
 }
+
+@media only screen and (max-width: 1200px) {
+  .main-header {
+    width: 700px;
+  }
+
+  .all-cards {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+    padding-top: 15px;
+    margin: auto;
+    width: 700px;
+  }
+}
+@media only screen and (max-width: 930px) {
+  .main-header {
+    width: 500px;
+    padding: 0;
+    height: 8em;
+  }
+
+  .main-title,
+.user-info,
+.navButton {
+    display: none;
+  }
+
+  .small {
+    align-self: center;
+    display: flex;
+    margin: auto;
+  }
+
+  .main-header-small {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .greeting-small {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+
+  .nav-small {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 1em;
+    width: 100%;
+  }
+
+  .h1-small,
+.user-name-small {
+    width: auto;
+    margin: 0;
+  }
+
+  .navButton-small {
+    font-size: 100%;
+    background-color: #A3D1BB;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px #37515C;
+    width: auto;
+  }
+  .navButton-small:hover {
+    cursor: pointer;
+    background-color: #5faf89;
+  }
+  .navButton-small:active {
+    background-color: #387055;
+  }
+
+  .all-cards {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(2, 1fr);
+    padding-top: 15px;
+    margin: auto;
+    width: 500px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .main-header {
+    width: 350px;
+    padding: 0;
+    height: 8em;
+  }
+
+  .main-title,
+.user-info,
+.navButton {
+    display: none;
+  }
+
+  .small {
+    align-self: center;
+    display: flex;
+    margin: auto;
+  }
+
+  .main-header-small {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .greeting-small {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+
+  .nav-small {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 1em;
+    width: 100%;
+  }
+
+  .h1-small,
+.user-name-small {
+    width: auto;
+    margin: 0;
+  }
+
+  .navButton-small {
+    font-size: 100%;
+    background-color: #A3D1BB;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px #37515C;
+    width: auto;
+  }
+  .navButton-small:hover {
+    cursor: pointer;
+    background-color: #5faf89;
+  }
+  .navButton-small:active {
+    background-color: #387055;
+  }
+
+  .all-cards {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(1, 1fr);
+    padding-top: 15px;
+    margin: auto;
+    width: 350px;
+  }
+}
+
+/*# sourceMappingURL=styles.scss.map */

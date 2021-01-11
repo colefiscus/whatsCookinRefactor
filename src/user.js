@@ -37,7 +37,18 @@ class User {
     });
   }
 
+  searchRecipesToCook(strgToSrch) {
+    return this.recipesToCook.filter(recipe => {
+      return recipe.name.includes(strgToSrch)
+      || recipe.ingredients.find(indredient => {
+        return ingredient.name.includes(strgToSrch)
+      });
+    });
+  }
+
   checkPantry(recipe) {
+    let recipeIngredients = recipe.ingredients
+    let pantryIngredients = this.pantry
     let recipeIngredientsInPantry = []
     recipe.ingredients.forEach((recipeIngredient) => {
       let answer = this.pantry.find((pantryIng) => pantryIng.ingredient === recipeIngredient.id && pantryIng.amount >= recipeIngredient.quantity.amount)

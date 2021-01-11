@@ -1,0 +1,75 @@
+@media only screen and (max-width: 930px) {
+    .main-header {
+        width: 500px;
+        padding: 0;
+        height: 8em;
+    }
+
+    .main-title,
+    .user-info,
+    .navButton {
+        display: none;
+    }
+
+    .small {
+        align-self: center;
+        display: flex;
+        margin: auto;
+    }
+
+    .main-header-small {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .greeting-small {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+    }
+
+    .nav-small {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 1em;
+        width: 100%;
+    }
+
+    .h1-small,
+    .user-name-small {
+        width: auto;
+        margin: 0;
+    }
+
+    .navButton-small {
+        font-size: 100%;
+        background-color: $blue-green;
+        border-radius: 5px;
+        box-shadow: 2px 2px 10px #37515C;
+        width: auto;
+
+        &:hover {
+            cursor: pointer;
+            background-color: darken($blue-green, 20%);
+        }
+
+        &:active {
+            background-color: darken($blue-green, 40%);
+        }
+    }
+
+    .all-cards {
+        display: grid;
+        gap: 30px;
+        grid-template-columns: repeat(2, 1fr);
+        padding-top: 15px;
+        margin: auto;
+        width: 500px;
+    }
+}

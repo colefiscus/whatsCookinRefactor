@@ -166,8 +166,6 @@ function getFavorites() {
   if (user.favoriteRecipes.length) {
     let stars = template.querySelectorAll('.favorite');
     stars.forEach(star => {
-      // console.log(user.favoriteRecipes)
-      console.log(typeof star.id)
       if (user.favoriteRecipes.find(recipe => recipe.id === star.id)) {
         template.querySelector('.favorite').classList.add('favorite-active')
       }

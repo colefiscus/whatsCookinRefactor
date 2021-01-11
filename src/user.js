@@ -1,12 +1,13 @@
 /* eslint-disable max-len */
 class User {
-  constructor(id, name, pantry) {
+  constructor(id, name, pantry, ingredientsData) {
     this.id = id;
     this.name = name;
     this.pantry = pantry;
     this.favoriteRecipes = [];
     this.recipesToCook = [];
     this.shoppingList = [];
+    this.ingredientsData = ingredientsData;
   }
 
   addToRecipeArray(recipe, array) {
@@ -45,7 +46,6 @@ class User {
       }
     })
     if (recipe.ingredients.length === recipeIngredientsInPantry.length) {
-      console.log("You have the ingredients!")
       return "You have the ingredients!"
     } else {
       return this.createShoppingList(recipe);
@@ -53,12 +53,12 @@ class User {
   }
 
   createShoppingList(recipe) {
+    this.shoppingList = [];
     let recIngs = recipe.ingredients.map(recIng => recIng.id)
     let pantryIngs = this.pantry.map(pantryIng => pantryIng.ingredient)
     let recIngsNotPantryIngs = recIngs.filter(recIng => {
       return recIngs.includes(recIng) && !pantryIngs.includes(recIng)
     })
-
     let recipeIngredientsInPantry = [];
     this.pantry.forEach(pantryIng => {
       let answer = recipe.ingredients.find(recipeIng => recipeIng.id === pantryIng.ingredient)
@@ -66,7 +66,6 @@ class User {
         recipeIngredientsInPantry.push(answer)
       }
     })
-
     recipeIngredientsInPantry.forEach(recIngPantryIng => {
       this.pantry.forEach(panIng => {
         if (recIngPantryIng.id === panIng.ingredient && recIngPantryIng.quantity.amount > panIng.amount) {
@@ -76,7 +75,6 @@ class User {
             id: recIngPantryIng.id,
             quantity: amountToBuy
           }
-
           let itemIDsAlreadyAdded = this.shoppingList.map(ing => ing.id)
           if (!itemIDsAlreadyAdded.includes(itemNeeded.id)) {
             this.shoppingList.push(itemNeeded)
@@ -84,7 +82,6 @@ class User {
         }
       });
     })
-
     recIngsNotPantryIngs.forEach(recNotPantryIng => {
       recipe.ingredients.forEach(recIng => {
         if (recIng.id === recNotPantryIng) {
@@ -97,25 +94,21 @@ class User {
         }
       })
     })
-
-    console.log("RECIPE INGS.....", recipe.ingredients)
-    console.log("INGS WE HAVE.....", this.pantry)
-    console.log("SHOPPING LIST.....", this.shoppingList)
-    return "You cannot make this recipe, you need more ingredients."
-
+    let priceOfIngs = this.calculateCost()
+    return `You cannot make ${recipe.name}; you need more ingredients. The cost is $${priceOfIngs}.`
   }
 
-  calculateCost(ingredientsData) {
+  calculateCost() {
     let costCounter = 0;
     this.shoppingList.forEach(ingredient => {
       this.ingredientsData.find(specificIngredient => {
         if (specificIngredient.id === ingredient.id) {
           costCounter += (Number(specificIngredient.estimatedCostInCents) *
-          Number(ingredient.quantity.amount))
+          Number(ingredient.quantity))
         }
       })
-    });
-    return costCounter;
+    })
+    return (costCounter / 100).toFixed(2);
   }
 }
 

@@ -5,10 +5,25 @@ import {
 
 import User from '../src/user.js';
 
-let user1, recipeData
+let user1, recipeData, ingredientsData
 
 describe('User', () => {
   beforeEach(() => {
+    ingredientsData = [{
+      "id": 20081,
+      "name": "all purpose flour",
+      "estimatedCostInCents": 142
+    },
+    {
+      "id": 99999,
+      "name": "sugar",
+      "estimatedCostInCents": 582
+    },
+    {
+      "id": 1123,
+      "name": "eggs",
+      "estimatedCostInCents": 472
+    }];
     user1 = new User(1, "Boba", [{
       ingredient: 18372,
       amount: 1,
@@ -21,7 +36,7 @@ describe('User', () => {
       ingredient: 1123,
       amount: 3,
     },
-    ])
+  ], ingredientsData)
     recipeData = [
       {
         name: "Loaded Chocolate Chip Pudding Cookie Cups",
@@ -114,11 +129,11 @@ describe('User', () => {
     expect(user1.checkPantry(recipeData[0])).to.eql("You have the ingredients!")
   });
 
-  it.only('Should inform User if they lack required ingredients for a given recipe', () => {
+  it('Should inform User if they lack required ingredients for a given recipe', () => {
     expect(user1.checkPantry(recipeData[1])).to.eql("You cannot make this recipe, you need more ingredients.");
   });
 
   it('Should inform User how much money buying missing ingredients will cost.', () => {
-
+    expect(user1.checkPantry(recipeData[1])).to.eql("The estimated cost for your lacking ingredients is... $22.18")
   })
 })

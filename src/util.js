@@ -1,8 +1,31 @@
-export const getData = (api) => {
-  return fetch(api)
+import User from './user';
+import ingredientsData from "./data/ingredients"
+
+function createRandomUser(users) {
+  let userId = (Math.ceil(Math.random() * 49) + 1)
+  let newUser = users.find(user => {
+    return user.id === Number(userId);
+  });
+  let user = new User(userId, newUser.name, newUser.pantry, ingredientsData)
+  return user
+}
+
+export const getIngredients = () => {
+  return fetch("http://localhost:3001/api/v1/ingredients")
     .then(response => response.json())
-    .then(data => data)
-    .catch(error => console.log(error))
+    .then(ingredients => ingredients)
+}
+
+export const getUser = () => {
+  return fetch("http://localhost:3001/api/v1/users")
+    .then(response => response.json())
+    .then(users => createRandomUser(users))
+}
+
+export const getCookbook = () => {
+  return fetch("http://localhost:3001/api/v1/recipes")
+    .then(response => response.json())
+    .then(cookbook => cookbook)
 }
 
 export const postData = (api, body) => {

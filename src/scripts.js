@@ -4,17 +4,17 @@ import './css/styles.scss';
 
 import recipeData from './data/recipes';
 import ingredientsData from "./data/ingredients"
-import users from './data/users';
 
 import Pantry from './pantry';
 import Recipe from './recipe';
-import User from './user';
 import Cookbook from './cookbook';
 
-import { getData, postData, deleteData } from './util.js';
+import { getUser, getCookbook, getIngredients, deleteData } from './util.js';
 
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
+let favButtonSmall = document.querySelector('.view-favorites-small');
+let homeButtonSmall = document.querySelector('.home-small')
 let cardArea = document.querySelector('.all-cards');
 let cookbook = new Cookbook(recipeData);
 let user, pantry;
@@ -24,34 +24,43 @@ let allCards = document.querySelector('.all-cards')
 let template = document.querySelector('.template').content;
 
 homeButton.addEventListener('click', cardButtonConditionals);
+homeButtonSmall.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
+favButtonSmall.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
 
 window.onload = onStartup();
 
 function onStartup() {
-  // getData("http://localhost:3001/api/v1/users")
-  // getData("http://localhost:3001/api/v1/ingredients")
-  // getData("http://localhost:3001/api/v1/recipes")
-
-  let userId = (Math.floor(Math.random() * 49) + 1)
-  let newUser = users.find(user => {
-    return user.id === Number(userId);
-  });
-  user = new User(userId, newUser.name, newUser.pantry, ingredientsData)
-  pantry = new Pantry(newUser.pantry)
-  populateCards(cookbook.recipes);
-  greetUser();
+  const ingredientsResults = getIngredients()
+    .catch((error) => console.log(error))
+  const userResult = getUser()
+    .then((userObject) => {
+      user = userObject
+      new Pantry(user.pantry)
+      return user
+    })
+    .catch((error) => console.log(error))
+  const cookbookResults = getCookbook()
+    .then((CBObj) => {
+      return new Cookbook(CBObj)
+    })
+    .catch((error) => console.log(error))
+  Promise.all([ingredientsResults, userResult, cookbookResults])
+    .then(() => {
+      greetUser();
+      populateCards(cookbook.recipes);
+    }) 
 }
 
-function getRecipeData(api) {
-  return getData(api)
-}
+// function getRecipeData(api) {
+//   return getData(api)
+// }
 
-function getRecipeInstructions(api) {
-  const recipeData = getData(api)
-  return recipeData.map(recipe => recipe.instructions)
-}
+// function getRecipeInstructions(api) {
+//   const recipeData = getData(api)
+//   return recipeData.map(recipe => recipe.instructions)
+// }
 
 function viewFavorites() {
   if (!user.favoriteRecipes.length) {
@@ -80,20 +89,39 @@ function favoriteCard(event) {
     }
   })
   updateStar(event)
-  updateFavoriteArray(event)
+  updateFavoriteArray(event, recipe)
+  getFavorites()
   return recipe
 }
 
 function updateFavoriteArray(event, recipe) {
-  console.log(event.target.id)
-  if (!user.favoriteRecipes.find(recipe => recipe.id === event.target.id)) {
-    user.addToRecipeArray(recipe, user.favoriteRecipes)
+  if (user.favoriteRecipes.length) {
+    let foundRecipe = user.favoriteRecipes.find(recipe => recipe.id === Number(event.target.id))
+    if (!foundRecipe) {
+      user.addToRecipeArray(recipe, user.favoriteRecipes)
+    } else {
+      user.removeFromRecipeArray(recipe, user.favoriteRecipes)
+    }
   } else {
-    user.removeFromRecipeArray(recipe, user.favoriteRecipes)
+    user.addToRecipeArray(recipe, user.favoriteRecipes)
   }
 }
 
+// function updateStar(event) {
+//   let eventTarget = event.target
+//   console.log(eventTarget)
+//   if (!eventTarget.classList.contains("favorite-active")) {
+//     console.log("BEFORE", eventTarget.classList)
+//     eventTarget.classList.add("favorite-active")
+//     console.log("AFTER", eventTarget.classList)
+//     favButton.innerHTML = "View Favorites"
+//   } else if (event.target.classList.contains("favorite-active")) {
+//     event.target.classList.remove("favorite-active")
+//   }
+// }
+
 function updateStar(event) {
+  getFavorites()
   if (!event.target.classList.contains("favorite-active")) {
     event.target.classList.add("favorite-active")
     favButton.innerHTML = "View Favorites"
@@ -116,7 +144,7 @@ function cardButtonConditionals(event) {
     user.addToRecipeArray(recipe, user.recipesToCook)
 
     user.checkPantry(recipe)
-  } else if (event.target.classList.contains("home")) {
+  } else if (event.target.classList.contains("home") || event.target.classList.contains("home-small")) {
     favButton.innerHTML = "View Favorites"
     populateCards(cookbook.recipes)
   }
@@ -158,10 +186,35 @@ function displayDirections(event) {
   })
 }
 
+// function getFavorites() {
+//   console.log("FUUUUUUUUCKKKKKKK", user.favoriteRecipes.length)
+//   if (user.favoriteRecipes.length) {
+//     let stars = template.querySelectorAll('.favorite');
+//     stars.forEach(star => {
+//       if (user.favoriteRecipes.find(recipe => recipe.id === star.id)) {
+//         template.querySelector('.favorite').classList.add('favorite-active')
+//       }
+//     })
+//     // user.favoriteRecipes.forEach(recipe => {
+//     //   if (template.querySelector('.favorite').id = recipe.id) {
+//     //     template.querySelector('.favorite').classList.add('favorite-active')
+//     //   }
+//     // })
+//   } else {
+//     return
+//   }
+// }
+
 function getFavorites() {
+  let allStars = document.querySelectorAll('.favorite')
   if (user.favoriteRecipes.length) {
     user.favoriteRecipes.forEach(recipe => {
-      document.querySelector(`.favorite-${recipe.id}`).classList.add('favorite-active')
+      allStars.forEach(star => {
+        let starId = Number(star.id);
+        if (starId === recipe.id) {
+          star.classList.add('favorite-active')
+        }
+      })
     })
   } else {
     return
@@ -169,18 +222,19 @@ function getFavorites() {
 }
 
 function populateCards(recipes) {
-  console.log("populate start<><><><><><><>")
+  cardArea.classList.remove('all');
   allCards.innerHTML = "";
   recipes.forEach(recipe => {
     let card = template.cloneNode(true);
     allCards.appendChild(card);
+    template.querySelector('.card').setAttribute("id", recipe.id)
     template.querySelector('.card-header').setAttribute("id", recipe.id)
     template.querySelector('.add-button').setAttribute("id", recipe.id)
-    template.querySelector('.favorite').setAttribute("id", recipe.id);
+    template.querySelector('.favorite').setAttribute("id", recipe.id);  
     template.querySelector('.recipe-name').textContent = `${recipe.name}`;
     template.querySelector('.card-picture').setAttribute("src", recipe.image);
     template.querySelector('.card-picture').setAttribute("id", recipe.id);
     template.querySelector('.card-picture').setAttribute("alt", `click to view recipe for ${recipe.name}`);
-    getFavorites()
   })
+  getFavorites()
 }

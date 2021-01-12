@@ -13,6 +13,8 @@ import { getUser, getCookbook, getIngredients, deleteData } from './util.js';
 
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
+let favButtonSmall = document.querySelector('.view-favorites-small');
+let homeButtonSmall = document.querySelector('.home-small')
 let cardArea = document.querySelector('.all-cards');
 let cookbook = new Cookbook(recipeData);
 let user, pantry;
@@ -22,7 +24,9 @@ let allCards = document.querySelector('.all-cards')
 let template = document.querySelector('.template').content;
 
 homeButton.addEventListener('click', cardButtonConditionals);
+homeButtonSmall.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
+favButtonSmall.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
 
 window.onload = onStartup();
@@ -140,7 +144,7 @@ function cardButtonConditionals(event) {
     user.addToRecipeArray(recipe, user.recipesToCook)
 
     user.checkPantry(recipe)
-  } else if (event.target.classList.contains("home")) {
+  } else if (event.target.classList.contains("home") || event.target.classList.contains("home-small")) {
     favButton.innerHTML = "View Favorites"
     populateCards(cookbook.recipes)
   }

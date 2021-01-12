@@ -7,7 +7,6 @@ import ingredientsData from "./data/ingredients"
 
 import Pantry from './pantry';
 import Recipe from './recipe';
-import Cookbook from './cookbook';
 
 import { getUser, getCookbook, getIngredients, deleteData } from './util.js';
 
@@ -16,8 +15,7 @@ let homeButton = document.querySelector('.home')
 let favButtonSmall = document.querySelector('.view-favorites-small');
 let homeButtonSmall = document.querySelector('.home-small')
 let cardArea = document.querySelector('.all-cards');
-let cookbook = new Cookbook(recipeData);
-let user, pantry;
+let user, pantry, cookbook
 
 //template selctors
 let allCards = document.querySelector('.all-cards')
@@ -45,29 +43,20 @@ function onStartup() {
     })
     .catch((error) => console.log(error))
   const cookbookResults = getCookbook()
-    .then((CBObj) => {
-      return new Cookbook(CBObj)
-    })
-    .catch((error) => console.log(error))
+    .catch((error) => console.log('error',error))
   Promise.all([ingredientsResults, userResult, cookbookResults])
     .then(() => {
       ingredientsResults.then((ingredients) => {
         user.ingredientsData = ingredients
-        console.log(user)
       })
-      greetUser();
-      populateCards(cookbook.recipes);
+      .then(() => {
+        cookbookResults.then((cookbook) => 
+        populateCards(cookbook.recipes)
+        )
+      })
+      greetUser()
     }) 
 }
-
-// function getRecipeData(api) {
-//   return getData(api)
-// }
-
-// function getRecipeInstructions(api) {
-//   const recipeData = getData(api)
-//   return recipeData.map(recipe => recipe.instructions)
-// }
 
 function viewFavorites() {
   if (!user.favoriteRecipes.length) {
@@ -89,7 +78,7 @@ function greetUser() {
     user.name.split(" ")[0] + " " + user.name.split(" ")[1][0]
 }
 
-function favoriteCard(event) {
+function favoriteCard(event, cookbook) {
   let recipe = cookbook.recipes.find((recipe) => {
     if (recipe.id === Number(event.target.id)) {
       return recipe
@@ -114,19 +103,6 @@ function updateFavoriteArray(event, recipe) {
   }
 }
 
-// function updateStar(event) {
-//   let eventTarget = event.target
-//   console.log(eventTarget)
-//   if (!eventTarget.classList.contains("favorite-active")) {
-//     console.log("BEFORE", eventTarget.classList)
-//     eventTarget.classList.add("favorite-active")
-//     console.log("AFTER", eventTarget.classList)
-//     favButton.innerHTML = "View Favorites"
-//   } else if (event.target.classList.contains("favorite-active")) {
-//     event.target.classList.remove("favorite-active")
-//   }
-// }
-
 function updateStar(event) {
   getFavorites()
   if (!event.target.classList.contains("favorite-active")) {
@@ -139,7 +115,7 @@ function updateStar(event) {
 
 function cardButtonConditionals(event) {
   if (event.target.classList.contains('favorite')) {
-    favoriteCard(event)
+    favoriteCard(event, cookbook)
   } else if (event.target.classList.contains("card-picture")) {
     displayDirections(event)
   } else if (event.target.classList.contains("add-button")) {
@@ -192,25 +168,6 @@ function displayDirections(event) {
     `)
   })
 }
-
-// function getFavorites() {
-//   console.log("FUUUUUUUUCKKKKKKK", user.favoriteRecipes.length)
-//   if (user.favoriteRecipes.length) {
-//     let stars = template.querySelectorAll('.favorite');
-//     stars.forEach(star => {
-//       if (user.favoriteRecipes.find(recipe => recipe.id === star.id)) {
-//         template.querySelector('.favorite').classList.add('favorite-active')
-//       }
-//     })
-//     // user.favoriteRecipes.forEach(recipe => {
-//     //   if (template.querySelector('.favorite').id = recipe.id) {
-//     //     template.querySelector('.favorite').classList.add('favorite-active')
-//     //   }
-//     // })
-//   } else {
-//     return
-//   }
-// }
 
 function getFavorites() {
   let allStars = document.querySelectorAll('.favorite')

@@ -1,4 +1,5 @@
 import User from './user';
+import Cookbook from './cookbook';
 
 function createRandomUser(users) {
   let userId = (Math.ceil(Math.random() * 49) + 1)
@@ -24,7 +25,7 @@ export const getUser = () => {
 export const getCookbook = () => {
   return fetch("http://localhost:3001/api/v1/recipes")
     .then(response => response.json())
-    .then(cookbook => cookbook)
+    .then(cookbook => new Cookbook(cookbook))
 }
 
 export const postData = (api, body) => {

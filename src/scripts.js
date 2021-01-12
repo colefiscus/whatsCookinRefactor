@@ -91,9 +91,10 @@ function favoriteCard(event) {
 
 function updateFavoriteArray(event, recipe) {
   if (user.favoriteRecipes.length) {
-    if (!user.favoriteRecipes.find(recipe => recipe.id === event.target.id)) {
+    if (user.favoriteRecipes.find(recipe => recipe.id !== event.target.id)) {
       user.addToRecipeArray(recipe, user.favoriteRecipes)
-    } else {
+    } else if (user.favoriteRecipes.find(recipe => recipe.id === event.target.id)) {
+      console.log("poop", event.target.id, recipe.id)
       user.removeFromRecipeArray(recipe, user.favoriteRecipes)
     }
   } else {

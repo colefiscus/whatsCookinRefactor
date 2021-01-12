@@ -4,14 +4,12 @@ import './css/styles.scss';
 
 import recipeData from './data/recipes';
 import ingredientsData from "./data/ingredients"
-import users from './data/users';
 
 import Pantry from './pantry';
 import Recipe from './recipe';
-import User from './user';
 import Cookbook from './cookbook';
 
-import { getData, postData, deleteData } from './util.js';
+import { getUser, getCookbook, getIngredients, deleteData } from './util.js';
 
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
@@ -30,28 +28,35 @@ cardArea.addEventListener('click', cardButtonConditionals);
 window.onload = onStartup();
 
 function onStartup() {
-  // getData("http://localhost:3001/api/v1/users")
-  // getData("http://localhost:3001/api/v1/ingredients")
-  // getData("http://localhost:3001/api/v1/recipes")
-
-  let userId = (Math.floor(Math.random() * 49) + 1)
-  let newUser = users.find(user => {
-    return user.id === Number(userId);
-  });
-  user = new User(userId, newUser.name, newUser.pantry, ingredientsData)
-  pantry = new Pantry(newUser.pantry)
-  populateCards(cookbook.recipes);
-  greetUser();
+  const ingredientsResults = getIngredients()
+    .catch((error) => console.log(error))
+  const userResult = getUser()
+    .then((userObject) => {
+      user = userObject
+      new Pantry(user.pantry)
+      return user
+    })
+    .catch((error) => console.log(error))
+  const cookbookResults = getCookbook()
+    .then((CBObj) => {
+      return new Cookbook(CBObj)
+    })
+    .catch((error) => console.log(error))
+  Promise.all([ingredientsResults, userResult, cookbookResults])
+    .then(() => {
+      greetUser();
+      populateCards(cookbook.recipes);
+    }) 
 }
 
-function getRecipeData(api) {
-  return getData(api)
-}
+// function getRecipeData(api) {
+//   return getData(api)
+// }
 
-function getRecipeInstructions(api) {
-  const recipeData = getData(api)
-  return recipeData.map(recipe => recipe.instructions)
-}
+// function getRecipeInstructions(api) {
+//   const recipeData = getData(api)
+//   return recipeData.map(recipe => recipe.instructions)
+// }
 
 function viewFavorites() {
   if (!user.favoriteRecipes.length) {

@@ -86,6 +86,7 @@ function favoriteCard(event) {
   })
   updateStar(event)
   updateFavoriteArray(event, recipe)
+  getFavorites()
   return recipe
 }
 
@@ -201,7 +202,6 @@ function displayDirections(event) {
 
 function getFavorites() {
   let allStars = document.querySelectorAll('.favorite')
-  console.log(allStars)
   if (user.favoriteRecipes.length) {
     user.favoriteRecipes.forEach(recipe => {
       allStars.forEach(star => {

@@ -7,7 +7,7 @@ class User {
     this.favoriteRecipes = [];
     this.recipesToCook = [];
     this.shoppingList = [];
-    this.ingredientsData = ingredientsData;
+    this.ingredientsData = ingredientsData || [];
   }
 
   addToRecipeArray(recipe, array) {

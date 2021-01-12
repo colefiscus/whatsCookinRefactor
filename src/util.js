@@ -1,12 +1,11 @@
 import User from './user';
-import ingredientsData from "./data/ingredients"
 
 function createRandomUser(users) {
   let userId = (Math.ceil(Math.random() * 49) + 1)
   let newUser = users.find(user => {
     return user.id === Number(userId);
   });
-  let user = new User(userId, newUser.name, newUser.pantry, ingredientsData)
+  let user = new User(userId, newUser.name, newUser.pantry)
   return user
 }
 

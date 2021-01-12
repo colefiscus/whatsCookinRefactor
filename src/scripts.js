@@ -33,6 +33,9 @@ window.onload = onStartup();
 
 function onStartup() {
   const ingredientsResults = getIngredients()
+    .then((ingredients) => {
+      return ingredients
+    })
     .catch((error) => console.log(error))
   const userResult = getUser()
     .then((userObject) => {
@@ -48,6 +51,10 @@ function onStartup() {
     .catch((error) => console.log(error))
   Promise.all([ingredientsResults, userResult, cookbookResults])
     .then(() => {
+      ingredientsResults.then((ingredients) => {
+        user.ingredientsData = ingredients
+        console.log(user)
+      })
       greetUser();
       populateCards(cookbook.recipes);
     }) 

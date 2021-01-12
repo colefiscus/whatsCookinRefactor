@@ -61,8 +61,9 @@ function onStartup() {
 function viewFavorites() {
   if (!user.favoriteRecipes.length) {
     favButton.innerHTML = 'You have no favorites!';
-    populateCards(cookbook.recipes);
-    return
+    const cookbook = getCookbook()
+    .then((cookbook) => 
+      populateCards(cookbook.recipes))
   } else {
     populateCards(user.favoriteRecipes)
   }
@@ -79,15 +80,18 @@ function greetUser() {
 }
 
 function favoriteCard(event, cookbook) {
-  let recipe = cookbook.recipes.find((recipe) => {
-    if (recipe.id === Number(event.target.id)) {
+  cookbook = getCookbook()
+    .then((cookbook) => {
+      let recipe = cookbook.recipes.find((recipe) => {
+        if (recipe.id === Number(event.target.id)) {
+          return recipe
+        }
+      })
+      updateStar(event)
+      updateFavoriteArray(event, recipe)
+      getFavorites()
       return recipe
-    }
-  })
-  updateStar(event)
-  updateFavoriteArray(event, recipe)
-  getFavorites()
-  return recipe
+    })
 }
 
 function updateFavoriteArray(event, recipe) {
@@ -129,7 +133,9 @@ function cardButtonConditionals(event) {
     user.checkPantry(recipe)
   } else if (event.target.classList.contains("home") || event.target.classList.contains("home-small")) {
     favButton.innerHTML = "View Favorites"
-    populateCards(cookbook.recipes)
+        const cookbook = getCookbook()
+        .then((cookbook) => 
+      populateCards(cookbook.recipes))
   }
 }
 

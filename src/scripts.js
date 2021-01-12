@@ -34,8 +34,6 @@ function onStartup() {
     .then((userObject) => {
       user = userObject
       new Pantry(user.pantry)
-      greetUser();
-      populateCards(cookbook.recipes);
       return user
     })
     .catch((error) => console.log(error))
@@ -45,17 +43,20 @@ function onStartup() {
     })
     .catch((error) => console.log(error))
   Promise.all([ingredientsResults, userResult, cookbookResults])
-    .then(values => console.log(values)) 
+    .then(() => {
+      greetUser();
+      populateCards(cookbook.recipes);
+    }) 
 }
 
-function getRecipeData(api) {
-  return getData(api)
-}
+// function getRecipeData(api) {
+//   return getData(api)
+// }
 
-function getRecipeInstructions(api) {
-  const recipeData = getData(api)
-  return recipeData.map(recipe => recipe.instructions)
-}
+// function getRecipeInstructions(api) {
+//   const recipeData = getData(api)
+//   return recipeData.map(recipe => recipe.instructions)
+// }
 
 function viewFavorites() {
   if (!user.favoriteRecipes.length) {

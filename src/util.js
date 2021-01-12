@@ -10,10 +10,22 @@ function createRandomUser(users) {
   return user
 }
 
+export const getIngredients = () => {
+  return fetch("http://localhost:3001/api/v1/ingredients")
+    .then(response => response.json())
+    .then(ingredients => ingredients)
+}
+
 export const getUser = () => {
   return fetch("http://localhost:3001/api/v1/users")
     .then(response => response.json())
     .then(users => createRandomUser(users))
+}
+
+export const getCookbook = () => {
+  return fetch("http://localhost:3001/api/v1/recipes")
+    .then(response => response.json())
+    .then(cookbook => cookbook)
 }
 
 export const postData = (api, body) => {

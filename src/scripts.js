@@ -117,6 +117,7 @@ function updateFavoriteArray(event, recipe) {
 // }
 
 function updateStar(event) {
+  getFavorites()
   if (!event.target.classList.contains("favorite-active")) {
     event.target.classList.add("favorite-active")
     favButton.innerHTML = "View Favorites"

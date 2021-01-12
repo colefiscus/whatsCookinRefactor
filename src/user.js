@@ -14,7 +14,7 @@ class User {
     if (!array.includes(recipe)) {
       array.push(recipe)
     }
-    return array
+    // return array
   }
 
   removeFromRecipeArray(recipe, array) {

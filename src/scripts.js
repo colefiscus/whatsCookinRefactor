@@ -199,6 +199,6 @@ function populateCards(recipes) {
     template.querySelector('.card-picture').setAttribute("src", recipe.image);
     template.querySelector('.card-picture').setAttribute("id", recipe.id);
     template.querySelector('.card-picture').setAttribute("alt", `click to view recipe for ${recipe.name}`);
-    getFavorites()
   })
+  getFavorites()
 }

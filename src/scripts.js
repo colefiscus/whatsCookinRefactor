@@ -208,7 +208,6 @@ function getFavorites() {
       allStars.forEach(star => {
         let starId = Number(star.id);
         if (starId === recipe.id) {
-          console.log(recipe.id, starId)
           star.classList.add('favorite-active')
         }
       })

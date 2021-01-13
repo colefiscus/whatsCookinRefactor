@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import './css/base.scss';
 import './css/styles.scss';
 
@@ -10,7 +9,6 @@ import {
   getCookbook,
   getIngredients,
   postData,
-  deleteData
 } from './util.js';
 
 let favButton = document.querySelector('.view-favorites');
@@ -52,8 +50,8 @@ function onStartup() {
   Promise.all([ingredientsResults, userResult, cookbookResults])
     .then(() => {
       ingredientsResults.then((ingredients) => {
-        user.ingredientsData = ingredients
-      })
+          user.ingredientsData = ingredients
+        })
         .then(() => {
           cookbookResults.then((cookbook) =>
             populateCards(cookbook.recipes)
@@ -78,7 +76,6 @@ function greetUser() {
   const userName = document.querySelector('.user-name');
   userName.innerHTML =
     user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0];
-
   const userName1 = document.querySelector(".user-name-small")
   userName1.innerHTML =
     user.name.split(" ")[0] + " " + user.name.split(" ")[1][0]
@@ -127,18 +124,6 @@ function cardButtonConditionals(event) {
     favoriteCard(event, cookbook)
   } else if (event.target.classList.contains("card-picture")) {
     displayDirections(event)
-    // } else if (event.target.classList.contains("add-button")) {
-    //   const cookbook = getCookbook()
-    //     .then((cookbook) => {
-    //       let recipe = cookbook.recipes.find((recipe) => {
-    //         if (recipe.id === Number(event.target.id)) {
-    //           return recipe
-    //         }
-    //       })
-    //       user.addToRecipeArray(recipe, user.recipesToCook)
-    //       user.checkPantry(recipe)
-    //     })
-
   } else if (event.target.classList.contains("home") || event.target.classList.contains("home-small")) {
     favButton.innerHTML = "View Favorites"
     getCookbook()
@@ -159,8 +144,8 @@ function displayDirections(event) {
       user.checkPantry(recipe)
       getIngredients()
         .then((ingredientsData) => {
-          let cost = recipeObject.calculateCost(recipeObject.ingredients, recipeObject.ingredientsData)
           let recipeObject = new Recipe(recipe, ingredientsData)
+          let cost = recipeObject.calculateCost(recipeObject.ingredients, recipeObject.ingredientsData)
           let directionDisplay = directionTemplate.cloneNode(true);
           cardArea.innerHTML = "";
           allCards.appendChild(directionDisplay);
@@ -170,7 +155,6 @@ function displayDirections(event) {
           document.querySelector(".cost").textContent = `$${cost.price}`
           let ingredientsSpan = document.querySelector(".ingredients")
           let instructionsSpan = document.querySelector(".instructions")
-
           recipeObject.ingredients.forEach((ingredient, i) => {
             let specificIngredientName = recipeObject.ingredients.map(ingredient => {
               let theIngredientWeWant = recipeObject.ingredientsData.find(ingredientName => {
@@ -217,25 +201,24 @@ function checkFields() {
   }
 }
 
-function postIngredient() { 
+function postIngredient() {
   getIngredients()
-  .then((ingredientsData) => {
-    let ingName = document.querySelector(".ingredient-name").value;
-    let ingId = ingredientsData.find(ingredient => {
-      if (ingredient.name) {
-      return ingredient.name === ingName
+    .then((ingredientsData) => {
+      let ingName = document.querySelector(".ingredient-name").value;
+      let ingId = ingredientsData.find(ingredient => {
+        if (ingredient.name) {
+          return ingredient.name === ingName
+        }
+      })
+      let ingAmount = document.querySelector(".ingredient-amount").value;
+      let idToAdd
+      if (ingId) {
+        idToAdd = ingId.id
+      } else {
+        idToAdd = Date.now()
       }
+      postData(user.id, idToAdd, ingAmount)
     })
-    let ingAmount = document.querySelector(".ingredient-amount").value;
-    let idToAdd
-    if (ingId) {
-      idToAdd = ingId.id
-    } else {
-      idToAdd = Date.now()
-    }
-    console.log("postBody>>>>>>", typeof user.id)
-    postData(user.id, idToAdd, ingAmount)
-  })
 }
 
 function getFavorites() {

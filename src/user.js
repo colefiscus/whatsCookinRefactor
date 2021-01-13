@@ -47,6 +47,7 @@ class User {
   }
 
   checkPantry(recipe) {
+    // needs to take in a recipe object
     let recipeIngredients = recipe.ingredients
     let pantryIngredients = this.pantry
     let recipeIngredientsInPantry = []
@@ -106,6 +107,7 @@ class User {
       })
     })
     let priceOfIngs = this.calculateCost()
+    // console.log("dont cook it")
     return `You cannot make ${recipe.name}; you need more ingredients. The cost is $${priceOfIngs}.`
   }
 

@@ -5,7 +5,12 @@ import './css/styles.scss';
 import Pantry from './pantry';
 import Recipe from './recipe';
 
-import { getUser, getCookbook, getIngredients, deleteData } from './util.js';
+import {
+  getUser,
+  getCookbook,
+  getIngredients,
+  deleteData
+} from './util.js';
 
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
@@ -47,19 +52,19 @@ function onStartup() {
         user.ingredientsData = ingredients
       })
         .then(() => {
-          cookbookResults.then((cookbook) => 
+          cookbookResults.then((cookbook) =>
             populateCards(cookbook.recipes)
           )
         })
       greetUser()
-    }) 
+    })
 }
 
 function viewFavorites() {
   if (!user.favoriteRecipes.length) {
     favButton.innerHTML = 'You have no favorites!';
     const cookbook = getCookbook()
-      .then((cookbook) => 
+      .then((cookbook) =>
         populateCards(cookbook.recipes))
   } else {
     populateCards(user.favoriteRecipes)
@@ -68,9 +73,9 @@ function viewFavorites() {
 
 function greetUser() {
   const userName = document.querySelector('.user-name');
-  userName.innerHTML = 
-  user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0];
-  
+  userName.innerHTML =
+    user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0];
+
   const userName1 = document.querySelector(".user-name-small")
   userName1.innerHTML =
     user.name.split(" ")[0] + " " + user.name.split(" ")[1][0]
@@ -119,72 +124,76 @@ function cardButtonConditionals(event) {
     favoriteCard(event, cookbook)
   } else if (event.target.classList.contains("card-picture")) {
     displayDirections(event)
-  } else if (event.target.classList.contains("add-button")) {
-    let recipe = cookbook.recipes.find((recipe) => {
-      if (recipe.id === Number(event.target.id)) {
-        return recipe
-      }
-    })
-    user.addToRecipeArray(recipe, user.recipesToCook)
-    user.checkPantry(recipe)
+    // } else if (event.target.classList.contains("add-button")) {
+    //   const cookbook = getCookbook()
+    //     .then((cookbook) => {
+    //       let recipe = cookbook.recipes.find((recipe) => {
+    //         if (recipe.id === Number(event.target.id)) {
+    //           return recipe
+    //         }
+    //       })
+    //       user.addToRecipeArray(recipe, user.recipesToCook)
+    //       user.checkPantry(recipe)
+    //     })
+
   } else if (event.target.classList.contains("home") || event.target.classList.contains("home-small")) {
     favButton.innerHTML = "View Favorites"
     const cookbook = getCookbook()
-      .then((cookbook) => 
+      .then((cookbook) =>
         populateCards(cookbook.recipes))
   }
 }
 
 function displayDirections(event) {
-  const cookbook = getCookbook()
-  
+  cardArea.classList.add("all")
+  getCookbook()
     .then((cookbook) => {
-    // console.log(cookbook.recipes)
-      let newRecipeInfo = cookbook.recipes.find(recipe => {
+      let recipe = cookbook.recipes.find(recipe => {
         if (recipe.id === Number(event.target.id)) {
           return recipe;
         }
       })
-      const ingredientsData = getIngredients().then((ingredientsData) => {
-        let recipeObject = new Recipe(newRecipeInfo, ingredientsData)
-        // calculate cost needs the ingredientsData
-        let cost = recipeObject.calculateCost()
-        let costInDollars = (cost / 100).toFixed(2)
-        cardArea.classList.add("all")
-        cardArea.innerHTML = `
-    <h3>${recipeObject.name}</h3>
-    <p class='all-recipe-info'>
-    <strong>It will cost: </strong>
-    <span class='cost recipe-info'>$${costInDollars}</span>
-    <br><br>
-    <strong>You will need: </strong>
-    <span class='ingredients recipe-info'></span>
-    <strong>Instructions: </strong>
-    <ol><span class='instructions recipe-info'></span></ol>
-    </p>`
-        let ingredientsSpan = document.querySelector(".ingredients")
-        let instructionsSpan = document.querySelector(".instructions")
-        recipeObject.ingredients.forEach((ingredient) => {
-          ingredientsSpan.insertAdjacentHTML(
-            "afterbegin",
-            `<ul><li>
-      ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
-      ${ingredient.name}</li></ul>
-      `
-          )
+      user.checkPantry(recipe)
+      getIngredients()
+        .then((ingredientsData) => {
+          let recipeObject = new Recipe(recipe, ingredientsData)
+          let cost = recipeObject.calculateCost()
+          let costInDollars = (cost / 100).toFixed(2)
+          cardArea.innerHTML = `
+          <p>${user.checkPantry(recipe)}</p>
+          <h3>${recipeObject.name}</h3>
+            <p class='all-recipe-info'>
+            <strong>The total ingredients cost: </strong>
+            <span class='cost recipe-info'>$${costInDollars}</span>
+            <br><br>
+            <strong>You will need: </strong>
+            <span class='ingredients recipe-info'></span>
+            <strong>Instructions: </strong>
+            <ol><span class='instructions recipe-info'></span></ol>
+            </p>`
+          let ingredientsSpan = document.querySelector(".ingredients")
+          let instructionsSpan = document.querySelector(".instructions")
+          recipeObject.ingredients.forEach((ingredient) => {
+            ingredientsSpan.insertAdjacentHTML(
+              "afterbegin",
+              `<ul><li>
+            ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
+            ${ingredient.name}</li></ul>
+            `
+            )
+          })
+          recipeObject.instructions.forEach((instruction) => {
+            instructionsSpan.insertAdjacentHTML(
+              "beforebegin",
+              `<li>
+            ${instruction.instruction}</li>
+            `
+            )
+          })
         })
-        recipeObject.instructions.forEach((instruction) => {
-          instructionsSpan.insertAdjacentHTML(
-            "beforebegin",
-            `<li>
-      ${instruction.instruction}</li>
-      `
-          )
-        })
-      })
     })
 }
-  
+
 function getFavorites() {
   let allStars = document.querySelectorAll('.favorite')
   if (user.favoriteRecipes.length) {
@@ -210,7 +219,7 @@ function populateCards(recipes) {
     template.querySelector('.card').setAttribute("id", recipe.id)
     template.querySelector('.card-header').setAttribute("id", recipe.id)
     template.querySelector('.add-button').setAttribute("id", recipe.id)
-    template.querySelector('.favorite').setAttribute("id", recipe.id);  
+    template.querySelector('.favorite').setAttribute("id", recipe.id);
     template.querySelector('.recipe-name').textContent = `${recipe.name}`;
     template.querySelector('.card-picture').setAttribute("src", recipe.image);
     template.querySelector('.card-picture').setAttribute("id", recipe.id);

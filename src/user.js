@@ -107,20 +107,22 @@ class User {
       })
     })
     let priceOfIngs = this.calculateCost()
-    return `You cannot make ${recipe.name}; you need more ingredients. The cost is $${priceOfIngs}.`
+    return `You cannot make ${recipe.name}; you need more ingredients. The cost is $${priceOfIngs.price}. Buy this: ${priceOfIngs.shoppingList.join(', ')}`
   }
 
   calculateCost() {
     let costCounter = 0;
+    let shoppingList = [];
     this.shoppingList.forEach(ingredient => {
       this.ingredientsData.find(specificIngredient => {
         if (specificIngredient.id === ingredient.id) {
           costCounter += (Number(specificIngredient.estimatedCostInCents) *
           Number(ingredient.quantity))
+          shoppingList.push(specificIngredient.name)
         }
       })
     })
-    return (costCounter / 100).toFixed(2);
+    return {shoppingList: shoppingList, price: (costCounter / 100).toFixed(2)}
   }
 }
 

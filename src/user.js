@@ -47,9 +47,6 @@ class User {
   }
 
   checkPantry(recipe) {
-    // needs to take in a recipe object
-    let recipeIngredients = recipe.ingredients
-    let pantryIngredients = this.pantry
     let recipeIngredientsInPantry = []
     recipe.ingredients.forEach((recipeIngredient) => {
       let answer = this.pantry.find((pantryIng) => pantryIng.ingredient === recipeIngredient.id && pantryIng.amount >= recipeIngredient.quantity.amount)
@@ -68,9 +65,14 @@ class User {
     this.shoppingList = [];
     let recIngs = recipe.ingredients.map(recIng => recIng.id)
     let pantryIngs = this.pantry.map(pantryIng => pantryIng.ingredient)
-    let recIngsNotPantryIngs = recIngs.filter(recIng => {
-      return recIngs.includes(recIng) && !pantryIngs.includes(recIng)
-    })
+    let reqIngs = this.filterReqIngs(recipe)
+    this.addPartialIngsToShopList(reqIngs)
+    this.addEntireIngsToShopList(recipe, recIngs, pantryIngs)
+    let priceOfIngs = this.calculateCost()
+    return `You cannot make ${recipe.name}; you need more ingredients. The cost is $${priceOfIngs.price}. Buy this: ${priceOfIngs.shoppingList.join(', ')}`
+  }
+  
+  filterReqIngs(recipe) {
     let recipeIngredientsInPantry = [];
     this.pantry.forEach(pantryIng => {
       let answer = recipe.ingredients.find(recipeIng => recipeIng.id === pantryIng.ingredient)
@@ -78,6 +80,10 @@ class User {
         recipeIngredientsInPantry.push(answer)
       }
     })
+    return recipeIngredientsInPantry
+  }
+
+  addPartialIngsToShopList(recipeIngredientsInPantry) {
     recipeIngredientsInPantry.forEach(recIngPantryIng => {
       this.pantry.forEach(panIng => {
         if (recIngPantryIng.id === panIng.ingredient && recIngPantryIng.quantity.amount > panIng.amount) {
@@ -94,6 +100,12 @@ class User {
         }
       });
     })
+  }
+
+  addEntireIngsToShopList(recipe, recIngs, pantryIngs) {
+    let recIngsNotPantryIngs = recIngs.filter(recIng => {
+      return recIngs.includes(recIng) && !pantryIngs.includes(recIng)
+    })
     recIngsNotPantryIngs.forEach(recNotPantryIng => {
       recipe.ingredients.forEach(recIng => {
         if (recIng.id === recNotPantryIng) {
@@ -106,8 +118,6 @@ class User {
         }
       })
     })
-    let priceOfIngs = this.calculateCost()
-    return `You cannot make ${recipe.name}; you need more ingredients. The cost is $${priceOfIngs.price}. Buy this: ${priceOfIngs.shoppingList.join(', ')}`
   }
 
   calculateCost() {
@@ -125,5 +135,7 @@ class User {
     return {shoppingList: shoppingList, price: (costCounter / 100).toFixed(2)}
   }
 }
+
+
 
 export default User;

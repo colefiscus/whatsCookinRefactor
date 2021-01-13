@@ -1,26 +1,15 @@
-class Recipe {
-  constructor(recipe, ingredientsData) {
-    this.name = recipe.name;
-    this.id = recipe.id;
-    this.ingredients = recipe.ingredients;
-    this.instructions = recipe.instructions;
-    this.tags = recipe.tags;
-    this.ingredientsData = ingredientsData;
-  }
+import User from "./user"
 
-  calculateCost() {
-    let costCounter = 0;
-    this.ingredients.forEach(ingredient => {
-      this.ingredientsData.find(specificIngredient => {
-        if (specificIngredient.id === ingredient.id) {
-          costCounter += (Number(specificIngredient.estimatedCostInCents) *
-          Number(ingredient.quantity.amount))
-        }
-      })
-    });
-    return costCounter;
+class Recipe extends User {
+  constructor(recipe, ingredientsData, id, name, pantry) {
+    super(id, name, pantry, ingredientsData)
+    this.name = recipe.name
+    this.id = recipe.id
+    this.ingredientsData = ingredientsData
+    this.ingredients = recipe.ingredients
+    this.instructions = recipe.instructions
+    this.tags = recipe.tags
   }
-
 }
 
 export default Recipe;

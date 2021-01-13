@@ -34,6 +34,7 @@ export const postData = (userId, ingId, amount) => {
     'ingredientID': ingId,
     'ingredientModification': amount
   }
+  console.log(postBody)
   return fetch("http://localhost:3001/api/v1/users", {
     method: "POST",
     headers: {

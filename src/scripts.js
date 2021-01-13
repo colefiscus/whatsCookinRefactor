@@ -49,8 +49,8 @@ function onStartup() {
   Promise.all([ingredientsResults, userResult, cookbookResults])
     .then(() => {
       ingredientsResults.then((ingredients) => {
-        user.ingredientsData = ingredients
-      })
+          user.ingredientsData = ingredients
+        })
         .then(() => {
           cookbookResults.then((cookbook) =>
             populateCards(cookbook.recipes)
@@ -173,15 +173,23 @@ function displayDirections(event) {
             </p>`
           let ingredientsSpan = document.querySelector(".ingredients")
           let instructionsSpan = document.querySelector(".instructions")
+          console.log(recipeObject.ingredients)
+          console.log(recipeObject.ingredientsData)
+
+          let recIngList = recipeObject.ingredientsData.find((ing) => {
+            ing.id === recipeObject.ingredients
+            // console.log(recipeObject.ingredientsData)
+            // return recipeObject.ingredientsData.name
+          })
+          // console.log(recIngList)
           recipeObject.ingredients.forEach((ingredient) => {
             ingredientsSpan.insertAdjacentHTML(
               "afterbegin",
               `<ul><li>
             ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
-            ${ingredient.name}</li></ul>
-            `
-            )
-          })
+            ${recIngList.name}</li></ul>
+            `)
+          }) 
           recipeObject.instructions.forEach((instruction) => {
             instructionsSpan.insertAdjacentHTML(
               "beforebegin",

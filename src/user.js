@@ -107,7 +107,6 @@ class User {
       })
     })
     let priceOfIngs = this.calculateCost()
-    // console.log("dont cook it")
     return `You cannot make ${recipe.name}; you need more ingredients. The cost is $${priceOfIngs}.`
   }
 

@@ -1,20 +1,20 @@
 /* eslint-disable max-len */
 class User {
   constructor(id, name, pantry, ingredientsData) {
-    this.id = id;
     this.name = name;
+    this.id = id;
+    this.ingredientsData = ingredientsData || [];
+
     this.pantry = pantry;
     this.favoriteRecipes = [];
     this.recipesToCook = [];
     this.shoppingList = [];
-    this.ingredientsData = ingredientsData || [];
   }
 
   addToRecipeArray(recipe, array) {
     if (!array.includes(recipe)) {
       array.push(recipe)
     }
-    // return array
   }
 
   removeFromRecipeArray(recipe, array) {
@@ -40,16 +40,13 @@ class User {
   searchRecipesToCook(strgToSrch) {
     return this.recipesToCook.filter(recipe => {
       return recipe.name.includes(strgToSrch)
-      || recipe.ingredients.find(indredient => {
+      || recipe.ingredients.find(ingredient => {
         return ingredient.name.includes(strgToSrch)
       });
     });
   }
 
   checkPantry(recipe) {
-    // needs to take in a recipe object
-    let recipeIngredients = recipe.ingredients
-    let pantryIngredients = this.pantry
     let recipeIngredientsInPantry = []
     recipe.ingredients.forEach((recipeIngredient) => {
       let answer = this.pantry.find((pantryIng) => pantryIng.ingredient === recipeIngredient.id && pantryIng.amount >= recipeIngredient.quantity.amount)
@@ -98,7 +95,7 @@ class User {
       recipe.ingredients.forEach(recIng => {
         if (recIng.id === recNotPantryIng) {
           let itemNeeded = {
-            name: recIng["name"],
+            // name: recIng["name"],
             id: recIng.id,
             quantity: recIng["quantity"]["amount"]
           };
@@ -106,14 +103,14 @@ class User {
         }
       })
     })
-    let priceOfIngs = this.calculateCost()
-    return `You cannot make ${recipe.name}; you need more ingredients. The cost is $${priceOfIngs.price}. Buy this: ${priceOfIngs.shoppingList.join(', ')}`
+    let priceOfIngs = this.calculateCost(this.shoppingList)
+    return `You cannot make ${recipe.name}; you need more ingredients. The cost is $${priceOfIngs.price}. Buy this: ${priceOfIngs.shoppingList.join(', ')}.`
   }
 
-  calculateCost() {
+  calculateCost(list) {
     let costCounter = 0;
     let shoppingList = [];
-    this.shoppingList.forEach(ingredient => {
+    list.forEach(ingredient => {
       this.ingredientsData.find(specificIngredient => {
         if (specificIngredient.id === ingredient.id) {
           costCounter += (Number(specificIngredient.estimatedCostInCents) *
@@ -122,7 +119,7 @@ class User {
         }
       })
     })
-    return {shoppingList: shoppingList, price: (costCounter / 100).toFixed(2)}
+    return {shoppingList, price: (costCounter / 100).toFixed(2)}
   }
 }
 

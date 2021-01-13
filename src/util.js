@@ -2,7 +2,7 @@ import User from './user';
 import Cookbook from './cookbook';
 
 function createRandomUser(users) {
-  let userId = (Math.ceil(Math.random() * 49) + 1)
+  let userId = (Math.ceil(Math.random() * 49))
   let newUser = users.find(user => {
     return user.id === Number(userId);
   });

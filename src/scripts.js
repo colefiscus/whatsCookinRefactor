@@ -236,13 +236,13 @@ function postIngredient() {
     } else {
       idToAdd = Date.now()
     }
-    let postBody = `{
-      "userID": ${user.id},
-      "ingredientID": ${idToAdd},
-      "ingredientModification": ${ingAmount}
-    }`
-    console.log("postBody>>>>>>", postBody)
-    postData(postBody)
+    // let postBody = JSON.stringify(`{
+    //   "userID": 
+    //   "ingredientID": ,
+    //   "ingredientModification": 
+    // }`)
+    console.log("postBody>>>>>>", typeof user.id)
+    postData(`${user.id.toString()}`, `${idToAdd}`, `${ingAmount}`)
   })
 }
 

@@ -28,17 +28,23 @@ export const getCookbook = () => {
     .then(cookbook => new Cookbook(cookbook))
 }
 
-export const postData = (body) => {
+export const postData = (userId, ingId, amount) => {
+  let postBody = {
+    'userID': userId,
+    'ingredientID': ingId,
+    'ingredientModification': amount
+  }
   return fetch("http://localhost:3001/api/v1/users", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify(postBody)
   })
     .then(response => response.json())
-    .then(data => data)
+    .then(data => console.log(data))
     .catch(error => console.log(error))
+
 }
 
 export const deleteData = (api, body) => {

@@ -157,7 +157,6 @@ function displayDirections(event) {
         .then((ingredientsData) => {
           let recipeObject = new Recipe(recipe, ingredientsData)
           let cost = recipeObject.calculateCost(recipeObject.ingredients, recipeObject.ingredientsData)
-          console.log('WRONG total recipe cost', cost.price)
           cardArea.innerHTML = `
           <p>${user.checkPantry(recipe)}</p>
           <h3>${recipeObject.name}</h3>

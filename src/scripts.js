@@ -173,31 +173,31 @@ function displayDirections(event) {
             </p>`
           let ingredientsSpan = document.querySelector(".ingredients")
           let instructionsSpan = document.querySelector(".instructions")
-          console.log(recipeObject.ingredients)
-          console.log(recipeObject.ingredientsData)
 
-          let recIngList = recipeObject.ingredientsData.find((ing) => {
-            ing.id === recipeObject.ingredients
-            // console.log(recipeObject.ingredientsData)
-            // return recipeObject.ingredientsData.name
-          })
-          // console.log(recIngList)
-          recipeObject.ingredients.forEach((ingredient) => {
+          recipeObject.ingredients.forEach((ingredient, i) => {
+            let specificIngredientName = recipeObject.ingredients.map(ingredient => {
+              let theIngredientWeWant = recipeObject.ingredientsData.find(ingredientName => {
+                if (ingredientName.id === ingredient.id) {
+                  return ingredientName.name
+                }
+              })
+              return theIngredientWeWant.name
+            })
             ingredientsSpan.insertAdjacentHTML(
               "afterbegin",
               `<ul><li>
-            ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
-            ${recIngList.name}</li></ul>
-            `)
-          }) 
-          recipeObject.instructions.forEach((instruction) => {
-            instructionsSpan.insertAdjacentHTML(
-              "beforebegin",
-              `<li>
-            ${instruction.instruction}</li>
-            `
-            )
-          })
+              ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
+              ${specificIngredientName[i]}</li></ul>
+              `)
+            }) 
+            recipeObject.instructions.forEach((instruction) => {
+              instructionsSpan.insertAdjacentHTML(
+                "beforebegin",
+                `<li>
+                ${instruction.instruction}</li>
+                `
+                )
+              })
         })
     })
 }

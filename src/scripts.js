@@ -207,7 +207,17 @@ function showIngredientsForm() {
   let ingredientForm = ingredientFormTemplate.cloneNode(true);
   cardArea.innerHTML = "";
   allCards.appendChild(ingredientForm);
+  document.querySelector(".ingredient-amount").addEventListener('keyup', checkFields)
+  document.querySelector(".ingredient-name").addEventListener('keyup', checkFields)
   document.querySelector(".ingredient-form-button").addEventListener('click', postIngredient)
+}
+
+function checkFields() {
+  if (document.querySelector(".ingredient-name").value && document.querySelector(".ingredient-amount").value) {
+    document.querySelector(".ingredient-form-button").disabled = false;
+  } else {
+    document.querySelector(".ingredient-form-button").disabled = true;
+  }
 }
 
 function postIngredient() { 

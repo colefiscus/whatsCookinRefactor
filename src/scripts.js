@@ -9,6 +9,8 @@ import {
   getUser,
   getCookbook,
   getIngredients,
+  postData,
+  deleteData
 } from './util.js';
 
 let favButton = document.querySelector('.view-favorites');
@@ -20,7 +22,9 @@ let user, cookbook
 
 // template selctors
 let allCards = document.querySelector('.all-cards')
-let template = document.querySelector('.template').content;
+let cardTemplate = document.querySelector('.card-template').content;
+let directionTemplate = document.querySelector('.directions-template').content;
+let ingredientFormTemplate = document.querySelector('.ingredient-form-template').content;
 
 homeButton.addEventListener('click', cardButtonConditionals);
 homeButtonSmall.addEventListener('click', cardButtonConditionals);
@@ -155,20 +159,15 @@ function displayDirections(event) {
       user.checkPantry(recipe)
       getIngredients()
         .then((ingredientsData) => {
-          let recipeObject = new Recipe(recipe, ingredientsData)
           let cost = recipeObject.calculateCost(recipeObject.ingredients, recipeObject.ingredientsData)
-          cardArea.innerHTML = `
-          <p>${user.checkPantry(recipe)}</p>
-          <h3>${recipeObject.name}</h3>
-            <p class='all-recipe-info'>
-            <strong>The total ingredients cost: </strong>
-            <span class='cost recipe-info'>$${cost.price}</span>
-            <br><br>
-            <strong>You will need: </strong>
-            <span class='ingredients recipe-info'></span>
-            <strong>Instructions: </strong>
-            <ol><span class='instructions recipe-info'></span></ol>
-            </p>`
+          let recipeObject = new Recipe(recipe, ingredientsData)
+          let directionDisplay = directionTemplate.cloneNode(true);
+          cardArea.innerHTML = "";
+          allCards.appendChild(directionDisplay);
+          document.querySelector(".add-to-pantry").addEventListener('click', showIngredientsForm)
+          document.querySelector(".display-recipe-name").textContent = `${recipeObject.name}`
+          document.querySelector(".can-cook").textContent = `${user.checkPantry(recipe)}`
+          document.querySelector(".cost").textContent = `$${cost.price}`
           let ingredientsSpan = document.querySelector(".ingredients")
           let instructionsSpan = document.querySelector(".instructions")
 
@@ -200,6 +199,45 @@ function displayDirections(event) {
     })
 }
 
+function showIngredientsForm() {
+  cardArea.classList.add("all")
+  let ingredientForm = ingredientFormTemplate.cloneNode(true);
+  cardArea.innerHTML = "";
+  allCards.appendChild(ingredientForm);
+  document.querySelector(".ingredient-amount").addEventListener('keyup', checkFields)
+  document.querySelector(".ingredient-name").addEventListener('keyup', checkFields)
+  document.querySelector(".ingredient-form-button").addEventListener('click', postIngredient)
+}
+
+function checkFields() {
+  if (document.querySelector(".ingredient-name").value && document.querySelector(".ingredient-amount").value) {
+    document.querySelector(".ingredient-form-button").disabled = false;
+  } else {
+    document.querySelector(".ingredient-form-button").disabled = true;
+  }
+}
+
+function postIngredient() { 
+  getIngredients()
+  .then((ingredientsData) => {
+    let ingName = document.querySelector(".ingredient-name").value;
+    let ingId = ingredientsData.find(ingredient => {
+      if (ingredient.name) {
+      return ingredient.name === ingName
+      }
+    })
+    let ingAmount = document.querySelector(".ingredient-amount").value;
+    let idToAdd
+    if (ingId) {
+      idToAdd = ingId.id
+    } else {
+      idToAdd = Date.now()
+    }
+    console.log("postBody>>>>>>", typeof user.id)
+    postData(user.id, idToAdd, ingAmount)
+  })
+}
+
 function getFavorites() {
   let allStars = document.querySelectorAll('.favorite')
   if (user.favoriteRecipes.length) {
@@ -220,16 +258,15 @@ function populateCards(recipes) {
   cardArea.classList.remove('all');
   allCards.innerHTML = "";
   recipes.forEach(recipe => {
-    let card = template.cloneNode(true);
+    let card = cardTemplate.cloneNode(true);
     allCards.appendChild(card);
-    template.querySelector('.card').setAttribute("id", recipe.id)
-    template.querySelector('.card-header').setAttribute("id", recipe.id)
-    // template.querySelector('.add-button').setAttribute("id", recipe.id)
-    template.querySelector('.favorite').setAttribute("id", recipe.id);
-    template.querySelector('.recipe-name').textContent = `${recipe.name}`;
-    template.querySelector('.card-picture').setAttribute("src", recipe.image);
-    template.querySelector('.card-picture').setAttribute("id", recipe.id);
-    template.querySelector('.card-picture').setAttribute("alt", `click to view recipe for ${recipe.name}`);
+    cardTemplate.querySelector('.card').setAttribute("id", recipe.id)
+    cardTemplate.querySelector('.card-header').setAttribute("id", recipe.id)
+    cardTemplate.querySelector('.favorite').setAttribute("id", recipe.id);
+    cardTemplate.querySelector('.recipe-name').textContent = `${recipe.name}`;
+    cardTemplate.querySelector('.card-picture').setAttribute("src", recipe.image);
+    cardTemplate.querySelector('.card-picture').setAttribute("id", recipe.id);
+    cardTemplate.querySelector('.card-picture').setAttribute("alt", `click to view recipe for ${recipe.name}`);
   })
   getFavorites()
 }

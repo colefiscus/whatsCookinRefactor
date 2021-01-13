@@ -69,9 +69,9 @@ class User {
     this.addPartialIngsToShopList(reqIngs)
     this.addEntireIngsToShopList(recipe, recIngs, pantryIngs)
     let priceOfIngs = this.calculateCost()
-    return `You cannot make ${recipe.name}; you need more ingredients. The cost is $${priceOfIngs.price}. Buy this: ${priceOfIngs.shoppingList.join(', ')}`
+    return `You cannot make ${recipe.name}; you need more ingredients. The cost is $${priceOfIngs.price}. Buy this: ${priceOfIngs.groceryList.join(', ')}`
   }
-  
+
   filterReqIngs(recipe) {
     let recipeIngredientsInPantry = [];
     this.pantry.forEach(pantryIng => {
@@ -122,20 +122,18 @@ class User {
 
   calculateCost() {
     let costCounter = 0;
-    let shoppingList = [];
+    let groceryList = [];
     this.shoppingList.forEach(ingredient => {
       this.ingredientsData.find(specificIngredient => {
         if (specificIngredient.id === ingredient.id) {
           costCounter += (Number(specificIngredient.estimatedCostInCents) *
           Number(ingredient.quantity))
-          shoppingList.push(specificIngredient.name)
+          groceryList.push(specificIngredient.name)
         }
       })
     })
-    return {shoppingList: shoppingList, price: (costCounter / 100).toFixed(2)}
+    return {groceryList: groceryList, price: (costCounter / 100).toFixed(2)}
   }
 }
-
-
 
 export default User;

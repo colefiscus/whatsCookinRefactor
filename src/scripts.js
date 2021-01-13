@@ -9,7 +9,6 @@ import {
   getUser,
   getCookbook,
   getIngredients,
-  deleteData
 } from './util.js';
 
 let favButton = document.querySelector('.view-favorites');
@@ -17,7 +16,7 @@ let homeButton = document.querySelector('.home')
 let favButtonSmall = document.querySelector('.view-favorites-small');
 let homeButtonSmall = document.querySelector('.home-small')
 let cardArea = document.querySelector('.all-cards');
-let user, pantry, cookbook
+let user, cookbook
 
 // template selctors
 let allCards = document.querySelector('.all-cards')
@@ -49,8 +48,8 @@ function onStartup() {
   Promise.all([ingredientsResults, userResult, cookbookResults])
     .then(() => {
       ingredientsResults.then((ingredients) => {
-          user.ingredientsData = ingredients
-        })
+        user.ingredientsData = ingredients
+      })
         .then(() => {
           cookbookResults.then((cookbook) =>
             populateCards(cookbook.recipes)
@@ -63,7 +62,7 @@ function onStartup() {
 function viewFavorites() {
   if (!user.favoriteRecipes.length) {
     favButton.innerHTML = 'You have no favorites!';
-    const cookbook = getCookbook()
+    getCookbook()
       .then((cookbook) =>
         populateCards(cookbook.recipes))
   } else {
@@ -81,8 +80,8 @@ function greetUser() {
     user.name.split(" ")[0] + " " + user.name.split(" ")[1][0]
 }
 
-function favoriteCard(event, cookbook) {
-  cookbook = getCookbook()
+function favoriteCard(event) {
+  getCookbook()
     .then((cookbook) => {
       let recipe = cookbook.recipes.find((recipe) => {
         if (recipe.id === Number(event.target.id)) {
@@ -138,7 +137,7 @@ function cardButtonConditionals(event) {
 
   } else if (event.target.classList.contains("home") || event.target.classList.contains("home-small")) {
     favButton.innerHTML = "View Favorites"
-    const cookbook = getCookbook()
+    getCookbook()
       .then((cookbook) =>
         populateCards(cookbook.recipes))
   }
@@ -157,14 +156,16 @@ function displayDirections(event) {
       getIngredients()
         .then((ingredientsData) => {
           let recipeObject = new Recipe(recipe, ingredientsData)
-          let cost = recipeObject.calculateCost()
-          let costInDollars = (cost / 100).toFixed(2)
+          console.log("recipeObject's ingredients", recipeObject.ingredients)
+          // DOESN'T HAVE THE FUCKING PRICE
+          let cost = user.calculateCost(recipeObject.ingredients)
+          console.log('WRONG total recipe cost', cost.price)
           cardArea.innerHTML = `
           <p>${user.checkPantry(recipe)}</p>
           <h3>${recipeObject.name}</h3>
             <p class='all-recipe-info'>
             <strong>The total ingredients cost: </strong>
-            <span class='cost recipe-info'>$${costInDollars}</span>
+            <span class='cost recipe-info'>$${cost.price}</span>
             <br><br>
             <strong>You will need: </strong>
             <span class='ingredients recipe-info'></span>
@@ -189,15 +190,15 @@ function displayDirections(event) {
               ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
               ${specificIngredientName[i]}</li></ul>
               `)
-            }) 
-            recipeObject.instructions.forEach((instruction) => {
-              instructionsSpan.insertAdjacentHTML(
-                "beforebegin",
-                `<li>
+          }) 
+          recipeObject.instructions.forEach((instruction) => {
+            instructionsSpan.insertAdjacentHTML(
+              "beforebegin",
+              `<li>
                 ${instruction.instruction}</li>
                 `
-                )
-              })
+            )
+          })
         })
     })
 }

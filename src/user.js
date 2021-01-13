@@ -1,20 +1,20 @@
 /* eslint-disable max-len */
 class User {
   constructor(id, name, pantry, ingredientsData) {
-    this.id = id;
     this.name = name;
+    this.id = id;
+    this.ingredientsData = ingredientsData || [];
+
     this.pantry = pantry;
     this.favoriteRecipes = [];
     this.recipesToCook = [];
     this.shoppingList = [];
-    this.ingredientsData = ingredientsData || [];
   }
 
   addToRecipeArray(recipe, array) {
     if (!array.includes(recipe)) {
       array.push(recipe)
     }
-    // return array
   }
 
   removeFromRecipeArray(recipe, array) {
@@ -40,7 +40,7 @@ class User {
   searchRecipesToCook(strgToSrch) {
     return this.recipesToCook.filter(recipe => {
       return recipe.name.includes(strgToSrch)
-      || recipe.ingredients.find(indredient => {
+      || recipe.ingredients.find(ingredient => {
         return ingredient.name.includes(strgToSrch)
       });
     });
@@ -110,7 +110,7 @@ class User {
       recipe.ingredients.forEach(recIng => {
         if (recIng.id === recNotPantryIng) {
           let itemNeeded = {
-            name: recIng["name"],
+            // name: recIng["name"],
             id: recIng.id,
             quantity: recIng["quantity"]["amount"]
           };
@@ -120,7 +120,7 @@ class User {
     })
   }
 
-  calculateCost() {
+  calculateCost(list) {
     let costCounter = 0;
     let groceryList = [];
     this.shoppingList.forEach(ingredient => {

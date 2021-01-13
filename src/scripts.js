@@ -156,9 +156,6 @@ function displayDirections(event) {
       getIngredients()
         .then((ingredientsData) => {
           let recipeObject = new Recipe(recipe, ingredientsData)
-          console.log("recipeObject's ingredients", recipeObject.ingredients)
-          console.log("ingredientsData", recipeObject.ingredientsData)
-          // DOESN'T HAVE THE FUCKING PRICE
           let cost = recipeObject.calculateCost(recipeObject.ingredients, recipeObject.ingredientsData)
           console.log('WRONG total recipe cost', cost.price)
           cardArea.innerHTML = `

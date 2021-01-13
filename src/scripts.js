@@ -224,7 +224,7 @@ function populateCards(recipes) {
     allCards.appendChild(card);
     template.querySelector('.card').setAttribute("id", recipe.id)
     template.querySelector('.card-header').setAttribute("id", recipe.id)
-    template.querySelector('.add-button').setAttribute("id", recipe.id)
+    // template.querySelector('.add-button').setAttribute("id", recipe.id)
     template.querySelector('.favorite').setAttribute("id", recipe.id);
     template.querySelector('.recipe-name').textContent = `${recipe.name}`;
     template.querySelector('.card-picture').setAttribute("src", recipe.image);

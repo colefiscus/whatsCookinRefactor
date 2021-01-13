@@ -1,4 +1,4 @@
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 578px) {
     .main-header {
         width: 350px;
         padding: 0;
@@ -71,5 +71,10 @@
         padding-top: 15px;
         margin: auto;
         width: 350px;
+    }
+
+    .card {
+        width: 60%;
+        margin: auto;
     }
 }

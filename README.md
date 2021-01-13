@@ -27,7 +27,8 @@ What can you do here?
 * Click `view favorites` to view your favorited recipes.
 * When viewing a recipe's data, if you do not have all the ingredients in the right amounts in your pantry, you can click the button to add ingredients.
 
-![NEED TO CREATE A GIF]( GIF ADDRESS )
+![Desktop View](https://media.giphy.com/media/xh91zbZTqHkqLCbyH9/giphy.gif)
+![Mobile View](https://media.giphy.com/media/Ddgfz0JsVVzWwfzPu1/giphy.gif)
 
 ## Contributing
 

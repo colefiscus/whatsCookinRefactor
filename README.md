@@ -7,13 +7,25 @@ What's Cookin is a site where you can browse recipes and mark them as favorites.
 
 If you just want to click around within our site, this will get you started.
 
+Start by cloning down and running the API!
 ```zsh
-clone down this project
+clone down this repo
+git clone git@github.com:turingschool-examples/whats-cookin-api.git
 npm install
-?? HOW TO GET API
-?? HOW TO OPEN SITE
+npm start
 
 ```
+Then you will need to clone this project.
+```zsh
+clone down this repo
+git clone git@github.com:colefiscus/whatsCookinRefactor.git
+npm install
+npm start
+```
+Your application should be running on `localhost:8080`, so be sure to open `localhost:8080` in your browser.
+
+The API should be running on port `localhost:3001`.
+
 You'll need to install both `npm` and `whats-cookin-api` in order to use the site.
 
 ### Initial Configuration
@@ -36,12 +48,11 @@ If you want to contribute, check out our project board.
 
 ## Links
 
-- Project homepage: ?? PROJECT HOME PAGE LINK
-- Repository: ?? REPO LINK
-- Issue tracker: ?? PROJECT BOARD 
-- Webpack: 
-- Sass:
+- Repository: https://github.com/colefiscus/whatsCookinRefactor
+- Issue tracker: https://github.com/colefiscus/whatsCookinRefactor/projects/1
+- Webpack: https://webpack.js.org/
+- Sass: https://sass-lang.com/
 
 ## Creators
 
-This project was created as a mod2 group project by Cole Fiscus, Drew Bradley, and Elsa Fluss. The spec sheet for the original project can be found at https://frontend.turing.io/projects/whats-cookin.html, and the spec sheet for the work we did (refactoring / changing to use API calls / etc) can be found at https://frontend.turing.io/projects/module-2/refactor-tractor-wc.html.
+This project was created as a mod2 group project by [Cole Fiscus](https://github.com/colefiscus), [Drew Bradley](https://github.com/DrewBradley), and [Elsa Fluss](https://github.com/elsafluss). The spec sheet for the original project can be found at https://frontend.turing.io/projects/whats-cookin.html, and the spec sheet for the work we did (refactoring / changing to use API calls / etc) can be found at https://frontend.turing.io/projects/module-2/refactor-tractor-wc.html.

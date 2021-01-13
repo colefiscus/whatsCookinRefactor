@@ -1,12 +1,12 @@
 import User from './user';
-import ingredientsData from "./data/ingredients"
+import Cookbook from './cookbook';
 
 function createRandomUser(users) {
   let userId = (Math.ceil(Math.random() * 49) + 1)
   let newUser = users.find(user => {
     return user.id === Number(userId);
   });
-  let user = new User(userId, newUser.name, newUser.pantry, ingredientsData)
+  let user = new User(userId, newUser.name, newUser.pantry)
   return user
 }
 
@@ -25,7 +25,7 @@ export const getUser = () => {
 export const getCookbook = () => {
   return fetch("http://localhost:3001/api/v1/recipes")
     .then(response => response.json())
-    .then(cookbook => cookbook)
+    .then(cookbook => new Cookbook(cookbook))
 }
 
 export const postData = (api, body) => {

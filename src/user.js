@@ -7,7 +7,7 @@ class User {
     this.favoriteRecipes = [];
     this.recipesToCook = [];
     this.shoppingList = [];
-    this.ingredientsData = ingredientsData;
+    this.ingredientsData = ingredientsData || [];
   }
 
   addToRecipeArray(recipe, array) {
@@ -47,6 +47,7 @@ class User {
   }
 
   checkPantry(recipe) {
+    // needs to take in a recipe object
     let recipeIngredients = recipe.ingredients
     let pantryIngredients = this.pantry
     let recipeIngredientsInPantry = []

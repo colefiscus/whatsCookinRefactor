@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 class User {
   constructor(id, name, pantry, ingredientsData) {
     this.name = name;
@@ -38,10 +37,10 @@ class User {
 
   searchRecipesToCook(strgToSrch) {
     return this.recipesToCook.filter(recipe => {
-      return recipe.name.includes(strgToSrch)
-      || recipe.ingredients.find(ingredient => {
-        return ingredient.name.includes(strgToSrch)
-      });
+      return recipe.name.includes(strgToSrch) ||
+        recipe.ingredients.find(ingredient => {
+          return ingredient.name.includes(strgToSrch)
+        });
     });
   }
 
@@ -89,7 +88,9 @@ class User {
           let amountToBuy = recIngPantryIng.quantity.amount - panIng.amount;
           let itemNeeded = {
             id: recIngPantryIng.id,
-            quantity: {amount: amountToBuy}
+            quantity: {
+              amount: amountToBuy
+            }
           }
           let itemIDsAlreadyAdded = this.shoppingList.map(ing => ing.id)
           if (!itemIDsAlreadyAdded.includes(itemNeeded.id)) {
@@ -109,7 +110,9 @@ class User {
         if (recIng.id === recNotPantryIng) {
           let itemNeeded = {
             id: recIng.id,
-            quantity: {amount: recIng["quantity"]["amount"]}
+            quantity: {
+              amount: recIng["quantity"]["amount"]
+            }
           };
           this.shoppingList.push(itemNeeded)
         }
@@ -124,12 +127,15 @@ class User {
       wholeIngs.find(specificIngredient => {
         if (specificIngredient.id === ingredient.id) {
           costCounter += (Number(specificIngredient.estimatedCostInCents) *
-          Number(ingredient.quantity.amount))
+            Number(ingredient.quantity.amount))
           groceryList.push(specificIngredient.name)
         }
       })
     })
-    return {groceryList: groceryList, price: (costCounter / 100).toFixed(2)}
+    return {
+      groceryList: groceryList,
+      price: (costCounter / 100).toFixed(2)
+    }
   }
 }
 

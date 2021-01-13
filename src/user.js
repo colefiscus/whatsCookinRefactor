@@ -4,7 +4,6 @@ class User {
     this.name = name;
     this.id = id;
     this.ingredientsData = ingredientsData || [];
-
     this.pantry = pantry;
     this.favoriteRecipes = [];
     this.recipesToCook = [];
@@ -68,7 +67,7 @@ class User {
     let reqIngs = this.filterReqIngs(recipe)
     this.addPartialIngsToShopList(reqIngs)
     this.addEntireIngsToShopList(recipe, recIngs, pantryIngs)
-    let priceOfIngs = this.calculateCost()
+    let priceOfIngs = this.calculateCost(this.shoppingList, this.ingredientsData)
     return `You cannot make ${recipe.name}; you need more ingredients. The cost is $${priceOfIngs.price}. Buy this: ${priceOfIngs.groceryList.join(', ')}`
   }
 
@@ -89,9 +88,8 @@ class User {
         if (recIngPantryIng.id === panIng.ingredient && recIngPantryIng.quantity.amount > panIng.amount) {
           let amountToBuy = recIngPantryIng.quantity.amount - panIng.amount;
           let itemNeeded = {
-            name: recIngPantryIng["name"],
             id: recIngPantryIng.id,
-            quantity: amountToBuy
+            quantity: {amount: amountToBuy}
           }
           let itemIDsAlreadyAdded = this.shoppingList.map(ing => ing.id)
           if (!itemIDsAlreadyAdded.includes(itemNeeded.id)) {
@@ -110,9 +108,8 @@ class User {
       recipe.ingredients.forEach(recIng => {
         if (recIng.id === recNotPantryIng) {
           let itemNeeded = {
-            // name: recIng["name"],
             id: recIng.id,
-            quantity: recIng["quantity"]["amount"]
+            quantity: {amount: recIng["quantity"]["amount"]}
           };
           this.shoppingList.push(itemNeeded)
         }
@@ -120,14 +117,14 @@ class User {
     })
   }
 
-  calculateCost(list) {
+  calculateCost(partialIngs, wholeIngs) {
     let costCounter = 0;
     let groceryList = [];
-    this.shoppingList.forEach(ingredient => {
-      this.ingredientsData.find(specificIngredient => {
+    partialIngs.forEach(ingredient => {
+      wholeIngs.find(specificIngredient => {
         if (specificIngredient.id === ingredient.id) {
           costCounter += (Number(specificIngredient.estimatedCostInCents) *
-          Number(ingredient.quantity))
+          Number(ingredient.quantity.amount))
           groceryList.push(specificIngredient.name)
         }
       })

@@ -6,7 +6,6 @@ class Recipe extends User {
     this.name = recipe.name
     this.id = recipe.id
     this.ingredientsData = ingredientsData
-
     this.ingredients = recipe.ingredients
     this.instructions = recipe.instructions
     this.tags = recipe.tags

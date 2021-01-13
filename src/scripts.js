@@ -157,8 +157,9 @@ function displayDirections(event) {
         .then((ingredientsData) => {
           let recipeObject = new Recipe(recipe, ingredientsData)
           console.log("recipeObject's ingredients", recipeObject.ingredients)
+          console.log("ingredientsData", recipeObject.ingredientsData)
           // DOESN'T HAVE THE FUCKING PRICE
-          let cost = user.calculateCost(recipeObject.ingredients)
+          let cost = recipeObject.calculateCost(recipeObject.ingredients, recipeObject.ingredientsData)
           console.log('WRONG total recipe cost', cost.price)
           cardArea.innerHTML = `
           <p>${user.checkPantry(recipe)}</p>
@@ -190,7 +191,7 @@ function displayDirections(event) {
               ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
               ${specificIngredientName[i]}</li></ul>
               `)
-          }) 
+          })
           recipeObject.instructions.forEach((instruction) => {
             instructionsSpan.insertAdjacentHTML(
               "beforebegin",

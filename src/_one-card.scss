@@ -1,8 +1,8 @@
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 578px) {
     .main-header {
-        width: 350px;
-        padding: 0;
         height: 8em;
+        padding: 0;
+        width: 350px;
     }
 
     .main-title,
@@ -18,45 +18,45 @@
     }
 
     .main-header-small {
+        align-items: center;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
         width: 100%;
     }
 
     .greeting-small {
+        align-items: center;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-        align-items: center;
         width: 100%;
     }
 
     .nav-small {
+        align-items: center;
         display: flex;
         justify-content: flex-end;
-        align-items: center;
         margin-top: 1em;
         width: 100%;
     }
 
     .h1-small,
     .user-name-small {
-        width: auto;
         margin: 0;
+        width: auto;
     }
 
     .navButton-small {
-        font-size: 100%;
         background-color: $blue-green;
         border-radius: 5px;
         box-shadow: 2px 2px 10px #37515C;
+        font-size: 100%;
         width: auto;
 
         &:hover {
-            cursor: pointer;
             background-color: darken($blue-green, 20%);
+            cursor: pointer;
         }
 
         &:active {
@@ -68,8 +68,13 @@
         display: grid;
         gap: 30px;
         grid-template-columns: repeat(1, 1fr);
-        padding-top: 15px;
         margin: auto;
+        padding-top: 15px;
         width: 350px;
+    }
+
+    .card {
+        margin: auto;
+        width: 60%;
     }
 }

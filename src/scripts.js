@@ -18,7 +18,7 @@ let homeButton = document.querySelector('.home')
 let favButtonSmall = document.querySelector('.view-favorites-small');
 let homeButtonSmall = document.querySelector('.home-small')
 let cardArea = document.querySelector('.all-cards');
-let user, pantry, cookbook
+let user, cookbook
 
 // template selctors
 let allCards = document.querySelector('.all-cards')
@@ -52,8 +52,8 @@ function onStartup() {
   Promise.all([ingredientsResults, userResult, cookbookResults])
     .then(() => {
       ingredientsResults.then((ingredients) => {
-          user.ingredientsData = ingredients
-        })
+        user.ingredientsData = ingredients
+      })
         .then(() => {
           cookbookResults.then((cookbook) =>
             populateCards(cookbook.recipes)
@@ -66,7 +66,7 @@ function onStartup() {
 function viewFavorites() {
   if (!user.favoriteRecipes.length) {
     favButton.innerHTML = 'You have no favorites!';
-    const cookbook = getCookbook()
+    getCookbook()
       .then((cookbook) =>
         populateCards(cookbook.recipes))
   } else {
@@ -84,8 +84,8 @@ function greetUser() {
     user.name.split(" ")[0] + " " + user.name.split(" ")[1][0]
 }
 
-function favoriteCard(event, cookbook) {
-  cookbook = getCookbook()
+function favoriteCard(event) {
+  getCookbook()
     .then((cookbook) => {
       let recipe = cookbook.recipes.find((recipe) => {
         if (recipe.id === Number(event.target.id)) {
@@ -141,7 +141,7 @@ function cardButtonConditionals(event) {
 
   } else if (event.target.classList.contains("home") || event.target.classList.contains("home-small")) {
     favButton.innerHTML = "View Favorites"
-    const cookbook = getCookbook()
+    getCookbook()
       .then((cookbook) =>
         populateCards(cookbook.recipes))
   }
@@ -159,17 +159,15 @@ function displayDirections(event) {
       user.checkPantry(recipe)
       getIngredients()
         .then((ingredientsData) => {
+          let cost = recipeObject.calculateCost(recipeObject.ingredients, recipeObject.ingredientsData)
           let recipeObject = new Recipe(recipe, ingredientsData)
-          let cost = recipeObject.calculateCost()
-          let costInDollars = (cost / 100).toFixed(2)
           let directionDisplay = directionTemplate.cloneNode(true);
           cardArea.innerHTML = "";
           allCards.appendChild(directionDisplay);
           document.querySelector(".add-to-pantry").addEventListener('click', showIngredientsForm)
           document.querySelector(".display-recipe-name").textContent = `${recipeObject.name}`
           document.querySelector(".can-cook").textContent = `${user.checkPantry(recipe)}`
-          document.querySelector(".cost").textContent = `$${costInDollars}`
-
+          document.querySelector(".cost").textContent = `$${cost.price}`
           let ingredientsSpan = document.querySelector(".ingredients")
           let instructionsSpan = document.querySelector(".instructions")
 
@@ -188,16 +186,15 @@ function displayDirections(event) {
               ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
               ${specificIngredientName[i]}</li></ul>
               `)
-            }) 
-            recipeObject.instructions.forEach((instruction) => {
-              instructionsSpan.insertAdjacentHTML(
-                "beforebegin",
-                `<li>
+          })
+          recipeObject.instructions.forEach((instruction) => {
+            instructionsSpan.insertAdjacentHTML(
+              "beforebegin",
+              `<li>
                 ${instruction.instruction}</li>
                 `
-                )
-
-              })
+            )
+          })
         })
     })
 }
@@ -265,7 +262,6 @@ function populateCards(recipes) {
     allCards.appendChild(card);
     cardTemplate.querySelector('.card').setAttribute("id", recipe.id)
     cardTemplate.querySelector('.card-header').setAttribute("id", recipe.id)
-    cardTemplate.querySelector('.add-button').setAttribute("id", recipe.id)
     cardTemplate.querySelector('.favorite').setAttribute("id", recipe.id);
     cardTemplate.querySelector('.recipe-name').textContent = `${recipe.name}`;
     cardTemplate.querySelector('.card-picture').setAttribute("src", recipe.image);

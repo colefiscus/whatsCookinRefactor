@@ -4,19 +4,18 @@ html {
 }
 
 body {
+  background: radial-gradient(circle, #A3D1BB 0%, #9CD199 77%, #AECED1 100%);
   box-sizing: border-box;
   font-family: "Lato", sans-serif;
   margin: auto;
-  background: #A3D1BB;
-  background: radial-gradient(circle, #A3D1BB 0%, #9CD199 77%, #AECED1 100%);
 }
 
 .main-header {
   align-items: center;
   background-color: #5faf89;
   border-bottom: 2px solid #387055;
-  border-right: 2px solid #387055;
   border-left: 2px solid #387055;
+  border-right: 2px solid #387055;
   border-radius: 0 0 5px 5px;
   display: flex;
   height: 7em;
@@ -27,11 +26,11 @@ body {
 }
 .main-header h1 {
   font-size: 200%;
+  font-weight: 700;
   margin-top: 0;
   margin-bottom: 0;
   text-align: center;
   width: 30%;
-  font-weight: 700;
 }
 .main-header .user-info {
   font-size: 180%;
@@ -41,15 +40,15 @@ body {
 }
 .main-header .navButton {
   background-color: #A3D1BB;
-  font-size: 130%;
-  margin: 1%;
-  height: 50%;
   border-radius: 5px;
   box-shadow: 2px 2px 10px #37515C;
+  font-size: 130%;
+  height: 50%;
+  margin: 1%;
 }
 .main-header .navButton:hover {
-  cursor: pointer;
   background-color: #5faf89;
+  cursor: pointer;
 }
 .main-header .navButton:active {
   background-color: #387055;
@@ -57,8 +56,8 @@ body {
 
 main {
   height: 90vh;
-  width: 90vw;
   margin: auto;
+  width: 90vw;
 }
 
 .all-cards {
@@ -70,74 +69,57 @@ main {
   width: 900px;
 }
 
-.add-button {
-  background-color: #ECFBFF;
-  display: flex;
-  width: 12%;
-}
-
-.add {
-  width: 100%;
-}
-
-img {
-  cursor: pointer;
-}
-
 .card {
   background-color: #ECFBFF;
-  border: 2px solid #566f63;
-  box-shadow: 2px 2px 5px #566f63;
   border-radius: 2px;
+  box-shadow: 2px 2px 5px #566f63;
   display: flex;
-  flex-direction: column;
   height: 15em;
+  flex-direction: column;
   width: 100%;
 }
 
 .card-header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  display: flex;
   height: 2.5em;
+  justify-content: center;
   margin-top: 5px;
 }
 .card-header button {
+  background-color: #ECFBFF;
   border: none;
   height: 2em;
-  width: 2em;
   margin: 0 1em;
-  background-color: #ECFBFF;
+  width: 2em;
 }
-
-.add-button {
-  margin-top: 0.2em;
+.card-header button:hover {
+  background-color: #bee1bc;
 }
 
 .favorite {
-  background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  cursor: pointer;
   background-color: #AECED1;
+  background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .favorite-active {
   background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
-  background-repeat: no-repeat;
   background-position: center;
+  background-repeat: no-repeat;
   cursor: pointer;
-  z-index: 1;
 }
 
 .recipe-name {
+  color: #405249;
   display: block;
   font-size: 100%;
-  text-align: center;
-  padding: 0.2em 0.4em;
-  line-height: 1;
   height: 2.85em;
-  color: #405249;
+  line-height: 1;
+  padding: 0.2em 0.4em;
+  text-align: center;
 }
 
 .all {
@@ -147,19 +129,20 @@ img {
 
 .all-recipe-info,
 ol {
-  color: #EBF5EE;
-  font-size: 220%;
+  color: #ECFBFF;
+  font-size: 100%;
   width: 100%;
 }
 
 h3 {
-  color: #EBF5EE;
+  color: #ECFBFF;
   font-size: 250%;
 }
 
 .card-picture:hover {
+  box-shadow: -2px -2px 10px #405249;
+  cursor: pointer;
   opacity: 0.7;
-  box-shadow: -2px -2px 10px #37515C;
 }
 
 .card-picture:active {
@@ -167,11 +150,11 @@ h3 {
 }
 
 .card-picture {
+  box-shadow: 2px 2px 10px #405249;
   height: 90%;
   margin: 0.5em 0.5em 0.5em 0.5em;
-  width: 90%;
   overflow: hidden;
-  box-shadow: 2px 2px 10px #37515C;
+  width: 90%;
 }
 
 .small {
@@ -198,9 +181,9 @@ h3 {
 }
 @media only screen and (max-width: 930px) {
   .main-header {
-    width: 500px;
-    padding: 0;
     height: 8em;
+    padding: 0;
+    width: 500px;
   }
 
   .main-title,
@@ -216,45 +199,45 @@ h3 {
   }
 
   .main-header-small {
+    align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     width: 100%;
   }
 
   .greeting-small {
+    align-items: center;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
     width: 100%;
   }
 
   .nav-small {
+    align-items: center;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
     margin-top: 1em;
     width: 100%;
   }
 
   .h1-small,
 .user-name-small {
-    width: auto;
     margin: 0;
+    width: auto;
   }
 
   .navButton-small {
-    font-size: 100%;
     background-color: #A3D1BB;
     border-radius: 5px;
     box-shadow: 2px 2px 10px #37515C;
+    font-size: 100%;
     width: auto;
   }
   .navButton-small:hover {
-    cursor: pointer;
     background-color: #5faf89;
+    cursor: pointer;
   }
   .navButton-small:active {
     background-color: #387055;
@@ -269,11 +252,11 @@ h3 {
     width: 500px;
   }
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 578px) {
   .main-header {
-    width: 350px;
-    padding: 0;
     height: 8em;
+    padding: 0;
+    width: 350px;
   }
 
   .main-title,
@@ -289,45 +272,45 @@ h3 {
   }
 
   .main-header-small {
+    align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     width: 100%;
   }
 
   .greeting-small {
+    align-items: center;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
     width: 100%;
   }
 
   .nav-small {
+    align-items: center;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
     margin-top: 1em;
     width: 100%;
   }
 
   .h1-small,
 .user-name-small {
-    width: auto;
     margin: 0;
+    width: auto;
   }
 
   .navButton-small {
-    font-size: 100%;
     background-color: #A3D1BB;
     border-radius: 5px;
     box-shadow: 2px 2px 10px #37515C;
+    font-size: 100%;
     width: auto;
   }
   .navButton-small:hover {
-    cursor: pointer;
     background-color: #5faf89;
+    cursor: pointer;
   }
   .navButton-small:active {
     background-color: #387055;
@@ -337,9 +320,14 @@ h3 {
     display: grid;
     gap: 30px;
     grid-template-columns: repeat(1, 1fr);
-    padding-top: 15px;
     margin: auto;
+    padding-top: 15px;
     width: 350px;
+  }
+
+  .card {
+    margin: auto;
+    width: 60%;
   }
 }
 

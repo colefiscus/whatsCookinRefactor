@@ -45,7 +45,7 @@
   </header>
   <main>
     <section class='all-cards'>
-      <template class='template'>
+      <template class='card-template'>
         <section class="card">
           <header class='card-header'>
             <label for='add-button' class='hidden'>Click to add recipe</label>
@@ -59,6 +59,29 @@
           <span class="recipe-name"></span>
           <img tabindex="0" class="card-picture" src="" alt="Food from recipe">
         </section>
+      </template>
+      <template class='directions-template'>
+        <p class="can-cook all-recipe-info"></p>
+        <button class="add-to-pantry">Need to Add Ingredients to Your Pantry?</button>
+        <h3 class="display-recipe-name"></h3>
+          <p class='all-recipe-info'>
+          <strong>The total ingredients cost: </strong>
+          <span class='cost recipe-info'></span>
+          <br><br>
+          <strong>You will need: </strong>
+          <span class='ingredients recipe-info'></span>
+          <strong>Instructions: </strong>
+          <ol><span class='instructions recipe-info'></span></ol>
+          </p>
+      </template>
+      <template class='ingredient-form-template'>
+        <article>
+          <label for="ingredient-name">Ingredient Name</label>
+          <input class="ingredient-name" type="text" value="">
+          <label for="ingredient-amount">Amount</label>
+          <input class="ingredient-amount" type="text" value="">
+          <button class="ingredient-form-button">Add Ingredient to Pantry</button>
+        </article>
       </template>
     </section>
   </main>

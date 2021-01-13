@@ -2,7 +2,7 @@ import User from './user';
 import Cookbook from './cookbook';
 
 function createRandomUser(users) {
-  let userId = (Math.ceil(Math.random() * 49) + 1)
+  let userId = (Math.ceil(Math.random() * 49))
   let newUser = users.find(user => {
     return user.id === Number(userId);
   });
@@ -28,8 +28,8 @@ export const getCookbook = () => {
     .then(cookbook => new Cookbook(cookbook))
 }
 
-export const postData = (api, body) => {
-  return fetch(api, {
+export const postData = (body) => {
+  return fetch("http://localhost:3001/api/v1/users", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'

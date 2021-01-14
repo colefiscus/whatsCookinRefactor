@@ -130,14 +130,6 @@ describe('User', () => {
   });
 
   it('Should inform User if they lack required ingredients for a given recipe', () => {
-    expect(user1.createShoppingList(recipeData[1])).to.eql("You cannot make Another Loaded Chocolate Chip Pudding Cookie Cups; you need more ingredients. The cost is $22.18.");
+    expect(user1.createShoppingList(recipeData[1])).to.eql("You cannot make Another Loaded Chocolate Chip Pudding Cookie Cups; you need more ingredients. The cost is $22.18. Buy this: eggs, sugar");
   });
-
-  it('Should inform User how much money buying missing ingredients will cost.', () => {
-    user1.shoppingList = [
-      { name: 'egg', id: 1123, quantity: 1 },
-      { name: 'sugar', id: 99999, quantity: 3 }
-    ]
-    expect(user1.calculateCost()).to.eql("22.18")
-  })
 })
